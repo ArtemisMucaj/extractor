@@ -87,13 +87,20 @@ header, footer{
 }
 
 #sidebar li{
+  background-color: #E5E5E6;
 	border-bottom: 1px solid rgba(140, 140, 140, 0.3);
+  margin:0;
+  padding:0;
+  border-radius:0;
 }
 #sidebar li a{
   color:#2C3E50;
 }
 #sidebar li:hover{
   background-color: #BDC3C7;
+  -webkit-box-shadow: 0px	0px 5px 1px rgba(140, 140, 140, 0.3);
+  box-shadow: 0px	0px 5px 1px rgba(140, 140, 140, 0.3);
+  border-bottom:none;
 }
 #sidebar li a span{
   margin-left:5px;
