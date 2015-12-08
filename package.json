@@ -1,0 +1,22 @@
+{
+  "name": "Thef.ac Extractor",
+  "productName": "Thef.ac Extractor",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "repository": "user/repo",
+  "scripts": {
+    "start": "./node_modules/.bin/electron app"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.0.0",
+    "electron-prebuilt": "*",
+    "drag-drop": "*",
+    "glob" : "*",
+    "jquery" : "*",
+    "pdfjs-dist" : "*",
+    "react" : "*",
+    "react-dom": "*",
+    "zmq" : "*"
+  }
+}
