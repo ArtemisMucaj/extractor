@@ -1,23 +1,13 @@
-Etapes : ###################################################
+### Etapes
 
-- File picker --> Creer tous les fichiers
-		.png (50ppi, 100ppi, qualité)
+File picker --> Creer tous les fichiers - Sauvegarder : .png (20x20px, 500x500px, 150ppi)
 
-- Selection manuelle ou autopicker
-		pages selectionnées, type de selection 
-		(manuelle ou autopickers)
+Selection manuelle ou auto-pick des pages selon leur degré de diffenrence
 
-- Apprentissage classifieur (CorePy.py)
-		kppv, frames pour chaque exemple
+Apprentissage classifieur - Sauvegarder : KPPV, frames pour chaque exemple
 
-- Extraction des tableaux
-		frames pour chaque page, tableaux (.tiff)
+Extraction des tableaux frames pour chaque page - Sauvegarder : tableaux (.tiff)
 
-- Extraction des cellules
-		frame pour chaque cellule
+Extraction des cellules - Sauvegarder : frame pour chaque cellule
 
-- OCR puis .csv
-		traduction pour chaque cellule et .csv
-
----------------------------
-kppv_algorithm_name_date_fichier
+OCR puis .csv - Sauvegarder : traduction pour chaque cellule et .csv
