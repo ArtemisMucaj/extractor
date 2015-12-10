@@ -1,5 +1,6 @@
 // ZeroMQ Subscriber trial
 var zmq = require('zmq')
+
 var subscriber = zmq.socket('sub')
 var client = zmq.socket('req')
 
@@ -24,13 +25,13 @@ var spawn = require('child_process').spawn,
 	[global.__dirname+"/python/publisher.py"]);
 
 // Print python script output responses
-publisher.stdout.on('data', function(data){ 
+publisher.stdout.on('data', function(data){
   console.log('stdout : ' + data);
 });
-publisher.stderr.on('data', function(data){ 
+publisher.stderr.on('data', function(data){
   console.log('stderr : ' + data);
 });
-publisher.on('close', function(code){ 
+publisher.on('close', function(code){
   console.log("python publisher script finished its execution");
 });
-// end of 
+// end of

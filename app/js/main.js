@@ -1,4 +1,4 @@
-var ConversionHelper, Converter, Dialog, DragDrop, FileHandle, FilePick, ProgressBar, React, ReactDOM, ReactFileButton, ReactFileSelectorLayout, ReactProgressBar, ReactProgressBarLayout, Remote, child_p, fs, glob, os, pdfjs, picker;
+var Autopick, ConversionHelper, Converter, Dialog, DragDrop, Extractor, FileHandle, FilePick, PickTrainingExamples, ProgressBar, React, ReactDOM, ReactFileButton, ReactFileSelectorLayout, ReactImagesFromPDF, ReactProgressBar, ReactProgressBarLayout, Remote, child_p, fs, glob, main_loop, os, pdfjs, zmq;
 
 DragDrop = require('drag-drop');
 
@@ -16,6 +16,8 @@ fs = require('fs');
 
 os = require('os');
 
+zmq = require('zmq');
+
 React = require('react');
 
 ReactDOM = require('react-dom');
@@ -28,6 +30,12 @@ ReactFileSelectorLayout = require("../app/js/ReactComponents/" + "FileSelectorLa
 
 ReactProgressBarLayout = require("../app/js/ReactComponents/" + "ProgressBarLayout");
 
+ReactImagesFromPDF = require("../app/js/ReactComponents/" + "ImagesFromPDF");
+
+Autopick = require('../app/js/Components/Autopick');
+
+PickTrainingExamples = require('../app/js/Components/PickTrainingExamples');
+
 ProgressBar = require('../app/js/Components/ProgressBar');
 
 FilePick = require('../app/js/Components/FilePick');
@@ -38,4 +46,6 @@ Converter = require('../app/js/Components/Converter');
 
 FileHandle = require('../app/js/Components/FileHandle');
 
-picker = new FileHandle("body", "#btn-file-pick");
+Extractor = require('../app/js/Extractor');
+
+main_loop = new Extractor();

@@ -1,37 +1,37 @@
 import zmq
 import sys
 
-#  We wait for 1 subscriber
-SUBSCRIBERS_EXPECTED = 1
 
+# Publish data using ZMQ
+class Publisher(object):
+    def __init__(self, expected_subscribers):
+        self.expected_subscribers, self.subscribers = expected_subscribers, 0
+        self.context = zmq.Context()
+        self.pub, self.syncservice = self.context.socket(zmq.PUB), self.context.socket(zmq.REP)
+        # setup pub and syncservice
+        self.setup()
+        self.wait_for_sync()
 
-def main():
-    context = zmq.Context()
-    # Socket to talk to clients
-    publisher = context.socket(zmq.PUB)
-    # set SNDHWM, so we don't drop messages for slow subscribers
-    publisher.sndhwm = 1100000
-    publisher.bind('tcp://*:8688')
+    def setup(self):
+        # Setup publisher
+        self.pub.sndhwm = 1100000
+        self.pub.bind('tcp://*:8688')
+        # Setup syncservice
+        self.syncservice.bind('tcp://*:8888')
 
-    # Socket to receive signals
-    syncservice = context.socket(zmq.REP)
-    syncservice.bind('tcp://*:8888')
+    def wait_for_sync(self):
+        sys.stdout.write("Waiting for sync ...\n")
+        while self.subscribers < self.expected_subscribers:
+            # wait for sync request
+            message = self.syncservice.recv()
+            # send sync reply
+            self.syncservice.send(b'')
+            self.subscribers += 1
+            sys.stdout.write("sub (%i/%i)" % (self.subscribers, self.expected_subscribers))
 
-    # Get synchronization from subscribers
-    subscribers = 0
-    while subscribers < SUBSCRIBERS_EXPECTED:
-        # wait for synchronization request
-        msg = syncservice.recv()
-        # send synchronization reply
-        syncservice.send(b'')
-        subscribers += 1
-        sys.stdout.write("sub (%i/%i)" % (subscribers, SUBSCRIBERS_EXPECTED))
+    def close(self):
+        self.pub.close(), self.syncservice.close()
+        self.context.term()
 
-    for i in range(0, 1000):
-        publisher.send(b"sisi ma geule")
-    # print("Bitch please...")
-    # Now broadcast 'END'
-    publisher.send(b'END')
-
-if __name__ == '__main__':
-    main()
+    def send(self, message):
+        self.pub.send_string(str(message))

@@ -1,23 +1,23 @@
 # FilePick class :
 class FilePick
-  constructor : (@dragArea, @pick_button) ->
-    @setPicker()
-    @button = @createButton()
+  constructor : (@dragArea, @pick_button, converterObj) ->
+    @setPicker(converterObj)
+    @button = @createButton(converterObj)
 
-  setPicker: () ->
+  setPicker: (converterObj) ->
     @drag = DragDrop(@dragArea, (files,pos) ->
-      FileHandle.handle(files))
+      FileHandle.handle(files, converterObj))
     ReactDOM.render(React.createElement(ReactFileSelectorLayout,
      description: " Choose a .pdf file to work with"+
      " - You can either drop it in the window or use the regular button ",
      text: "Select a file (.pdf only)"),
      document.getElementById("content"))
 
-  createButton: () ->
+  createButton: (converterObj) ->
     button = $(@pick_button)
     button.on('change', (event) ->
       files = event.target.files
-      FileHandle.handle(files)
+      FileHandle.handle(files, converterObj)
      )
     return button
 
