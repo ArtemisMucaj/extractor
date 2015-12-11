@@ -9,7 +9,7 @@ class PickTrainingExamples
     args = [global.__dirname+
       '/python/auto_pick_train.py', global.__dirname+"/data/"+
       FileHandle.filename+"/low/"]
-    autopick_process = child_p("python3", args)
+    autopick_process = child_p("python", args)
     autopick_process.on 'close', (code, signal) ->
       #PickTrainingExamples.training_examples = autopick.message
       msg = autopick.message.replace('[', '').

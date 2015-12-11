@@ -10,7 +10,7 @@ PickTrainingExamples = (function() {
     autopick = new Autopick();
     console.log("Running auto_pick_train.py");
     args = [global.__dirname + '/python/auto_pick_train.py', global.__dirname + "/data/" + FileHandle.filename + "/low/"];
-    autopick_process = child_p("python3", args);
+    autopick_process = child_p("python", args);
     return autopick_process.on('close', function(code, signal) {
       var elt, i, len, msg;
       msg = autopick.message.replace('[', '').replace(']', '').replace(/ /g, "");

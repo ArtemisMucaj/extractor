@@ -24,12 +24,7 @@ Converter = (function() {
       if (file_count === progress_bar.max) {
         return PickTrainingExamples.auto();
       } else {
-        Converter.low_res = child_p("pdftoppm", ConversionHelper.pdftoppm_low_res_req()).then(function() {
-          return Converter.low_res.on('close', function(code) {
-            console.log('low resolution conversion just finished');
-            return PickTrainingExamples.auto();
-          });
-        });
+        Converter.low_res = child_p("pdftoppm", ConversionHelper.pdftoppm_low_res_req());
         Converter.mid_res = child_p("pdftoppm", ConversionHelper.pdftoppm_mid_res_req());
         return Converter.high_res = child_p("pdftoppm", ConversionHelper.pdftoppm_high_res_req());
       }

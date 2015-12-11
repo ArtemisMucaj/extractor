@@ -28,10 +28,11 @@ class Converter
         PickTrainingExamples.auto()
       else
         Converter.low_res = child_p("pdftoppm",
-         ConversionHelper.pdftoppm_low_res_req()).then ->
-           Converter.low_res.on 'close', (code) ->
-             console.log('low resolution conversion just finished')
-             PickTrainingExamples.auto()
+         ConversionHelper.pdftoppm_low_res_req())
+         #.then ->
+          # Converter.low_res.on 'close', (code) ->
+          #   console.log('low resolution conversion just finished')
+          #   PickTrainingExamples.auto()
         Converter.mid_res = child_p("pdftoppm",
           ConversionHelper.pdftoppm_mid_res_req())
         Converter.high_res = child_p("pdftoppm",
