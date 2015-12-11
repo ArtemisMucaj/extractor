@@ -3,7 +3,9 @@ var PickTrainingExamples;
 PickTrainingExamples = (function() {
   function PickTrainingExamples() {}
 
-  PickTrainingExamples.training_examples = [];
+  PickTrainingExamples.urls = [];
+
+  PickTrainingExamples.images = [];
 
   PickTrainingExamples.auto = function(path) {
     var args, autopick, autopick_process;
@@ -13,23 +15,25 @@ PickTrainingExamples = (function() {
     autopick_process = child_p("python", args);
     subprocessList.push(autopick_process);
     return autopick_process.on('close', function(code, signal) {
-      var elt, i, images, j, k, len, msg, ref;
+      var data, elt, i, im, j, k, len, msg, ref;
       autopick_process.exitCode = 1;
       msg = autopick.message.replace('[', '').replace(']', '').replace(/ /g, "");
       msg = msg.replace(/'/g, '').split(',');
       for (j = 0, len = msg.length; j < len; j++) {
         elt = msg[j];
-        PickTrainingExamples.training_examples.push(global.__dirname + "/data/" + FileHandle.encodedName + "/500x500/" + elt);
+        PickTrainingExamples.urls.push(global.__dirname + "/data/" + FileHandle.encodedName + "/500x500/" + elt);
       }
-      images = [];
-      for (i = k = 0, ref = PickTrainingExamples.training_examples.length; 0 <= ref ? k < ref : k > ref; i = 0 <= ref ? ++k : --k) {
+      data = [];
+      for (i = k = 0, ref = PickTrainingExamples.urls.length; 0 <= ref ? k < ref : k > ref; i = 0 <= ref ? ++k : --k) {
         console.log("Converting " + i + "th image ...");
-        sharp(PickTrainingExamples.training_examples[i]).toFormat('png').toBuffer().then(function(output) {
-          images.push(output);
+        im = sharp(PickTrainingExamples.urls[i]);
+        PickTrainingExamples.images.push(im);
+        im.resize(200, 200).toFormat('png').toBuffer().then(function(output) {
+          data.push(output);
           console.log("Rendering " + i + "th image ...");
           return ReactDOM.render(React.createElement(ReactImageList, {
             description: "",
-            data: images
+            data: data
           }), document.getElementById("content"));
         });
       }

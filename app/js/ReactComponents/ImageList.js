@@ -19,7 +19,7 @@ ReactImageList = React.createClass({
       results = [];
       for (i = j = 0, ref = data.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
         results.push(React.DOM.img({
-          className: "",
+          className: "thumbnail",
           key: i,
           src: "data:image/png;base64," + data[i].toString('base64')
         }));

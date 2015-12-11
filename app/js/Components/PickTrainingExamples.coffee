@@ -1,6 +1,7 @@
 class PickTrainingExamples
 
-  @training_examples = []
+  @urls = []
+  @images = []
 
   @auto : (path) ->
     autopick = new Autopick()
@@ -19,20 +20,23 @@ class PickTrainingExamples
       replace(']', '').replace(/ /g,"")
       msg = msg.replace(/'/g,'').split(',')
       for elt in msg
-        PickTrainingExamples.training_examples.push global.__dirname+
+        PickTrainingExamples.urls.push global.__dirname+
           "/data/"+FileHandle.encodedName+"/500x500/"+elt
       # Render file list
-      images = []
-      for i in [0...PickTrainingExamples.training_examples.length]
+      data = []
+      for i in [0...PickTrainingExamples.urls.length]
         console.log "Converting "+i+"th image ..."
-        sharp(PickTrainingExamples.training_examples[i])
-        .toFormat('png').toBuffer().then (output) ->
-          images.push output
+        im = sharp(PickTrainingExamples.urls[i])
+        # Keep image in memory
+        PickTrainingExamples.images.push im
+        im
+        .resize(200,200).toFormat('png').toBuffer().then (output) ->
+          data.push output
           # Render
           console.log "Rendering "+i+"th image ..."
           ReactDOM.render(React.createElement(ReactImageList,
            description: "",
-           data:images),
+           data:data),
             document.getElementById("content"))
       autopick.close()
 

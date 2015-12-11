@@ -11,7 +11,7 @@ ReactImageList = React.createClass
       idName:"image-list",
         #eat food for food in ['toast', 'cheese', 'wine']
         for i in [0...data.length]
-          React.DOM.img className:"", key:i,
+          React.DOM.img className:"thumbnail", key:i,
           src:"data:image/png;base64,"+(data[i]).toString('base64')
 
 module.exports = ReactImageList
