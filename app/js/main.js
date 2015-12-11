@@ -1,4 +1,4 @@
-var Autopick, ConversionHelper, Converter, Dialog, DragDrop, Extractor, FileHandle, FilePick, PickTrainingExamples, ProgressBar, React, ReactDOM, ReactFileButton, ReactFileSelectorLayout, ReactImagesFromPDF, ReactProgressBar, ReactProgressBarLayout, Remote, child_p, fs, glob, main_loop, os, pdfjs, zmq;
+var Autopick, ConversionHelper, Converter, Dialog, DragDrop, Extractor, FileHandle, FilePick, Helper, PickTrainingExamples, ProgressBar, React, ReactDOM, ReactFileButton, ReactFileSelectorLayout, ReactImageList, ReactProgressBar, ReactProgressBarLayout, Remote, child_p, fs, glob, main_loop, os, pdfjs, process, sharp, subprocessList, zmq;
 
 DragDrop = require('drag-drop');
 
@@ -16,6 +16,10 @@ fs = require('fs');
 
 os = require('os');
 
+process = require('process');
+
+sharp = require('sharp');
+
 zmq = require('zmq');
 
 React = require('react');
@@ -30,7 +34,9 @@ ReactFileSelectorLayout = require("../app/js/ReactComponents/" + "FileSelectorLa
 
 ReactProgressBarLayout = require("../app/js/ReactComponents/" + "ProgressBarLayout");
 
-ReactImagesFromPDF = require("../app/js/ReactComponents/" + "ImagesFromPDF");
+ReactImageList = require("../app/js/ReactComponents/" + "ImageList");
+
+Helper = require('../app/js/Components/Helper');
 
 Autopick = require('../app/js/Components/Autopick');
 
@@ -47,5 +53,9 @@ Converter = require('../app/js/Components/Converter');
 FileHandle = require('../app/js/Components/FileHandle');
 
 Extractor = require('../app/js/Extractor');
+
+subprocessList = [];
+
+Helper.killSubProcesses(subprocessList);
 
 main_loop = new Extractor();

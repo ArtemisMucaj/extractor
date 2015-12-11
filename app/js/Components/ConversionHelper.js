@@ -7,25 +7,18 @@ ConversionHelper = (function() {
     return child_p("mkdir", ["-p", path]);
   };
 
-  ConversionHelper.pdftoppm_low_res_req = function() {
+  ConversionHelper.ScaleRequest = function(x, y, p) {
     var path;
-    path = global.__dirname + "/data/" + FileHandle.filename + "/low/";
+    path = p + "/" + x + "x" + y + "/";
     ConversionHelper.mkdir(path);
-    return ['-scale-to-x', '20', '-scale-to-y', '20', '-png', FileHandle.filepath, path];
+    return ['-scale-to-x', x, '-scale-to-y', y, '-tiff', FileHandle.filepath, path];
   };
 
-  ConversionHelper.pdftoppm_mid_res_req = function() {
+  ConversionHelper.PPIRequest = function(ppi, p) {
     var path;
-    path = global.__dirname + "/data/" + FileHandle.filename + "/mid/";
+    path = p + "/" + ppi + "/";
     ConversionHelper.mkdir(path);
-    return ['-scale-to-x', '500', '-scale-to-y', '500', '-png', FileHandle.filepath, path];
-  };
-
-  ConversionHelper.pdftoppm_high_res_req = function() {
-    var path;
-    path = global.__dirname + "/data/" + FileHandle.filename + "/high/";
-    ConversionHelper.mkdir(path);
-    return ['-r', '150', '-png', FileHandle.filepath, path];
+    return ['-r', ppi, '-tiff', FileHandle.filepath, path];
   };
 
   return ConversionHelper;

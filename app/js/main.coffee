@@ -9,6 +9,9 @@ glob = require('glob')
 child_p = require('child_process').spawn
 fs = require('fs')
 os = require('os')
+process = require('process')
+
+sharp = require('sharp')
 
 zmq = require('zmq')
 
@@ -22,10 +25,12 @@ ReactFileSelectorLayout = require "../app/js/ReactComponents/"+"
     FileSelectorLayout"
 ReactProgressBarLayout = require "../app/js/ReactComponents/"+"
     ProgressBarLayout"
-ReactImagesFromPDF = require "../app/js/ReactComponents/"+"
-    ImagesFromPDF"
+ReactImageList = require "../app/js/ReactComponents/"+"
+    ImageList"
 
 # Load regular Components
+
+Helper = require('../app/js/Components/Helper')
 
 Autopick = require('../app/js/Components/Autopick')
 PickTrainingExamples = require('../app/js/Components/PickTrainingExamples')
@@ -37,5 +42,8 @@ Converter = require('../app/js/Components/Converter')
 FileHandle = require('../app/js/Components/FileHandle')
 
 Extractor = require('../app/js/Extractor')
+
+subprocessList = []
+Helper.killSubProcesses(subprocessList)
 
 main_loop = new Extractor()

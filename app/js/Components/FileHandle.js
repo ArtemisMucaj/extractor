@@ -9,6 +9,8 @@ FileHandle = (function() {
 
   FileHandle.filename;
 
+  FileHandle.encodedName;
+
   function FileHandle(dragArea, pick_button) {
     FileHandle.setStaticAttr(dragArea, pick_button);
   }
@@ -29,6 +31,7 @@ FileHandle = (function() {
         if (f.type === "application/pdf") {
           FileHandle.filepath = f.path;
           FileHandle.filename = FileHandle.filepath.split("/").pop().split(".")[0];
+          FileHandle.encodedName = btoa(FileHandle.filename);
           ReactDOM.render(React.createElement(ReactProgressBarLayout, {
             description: " Your file is being converted " + " - This operationg might take a while ",
             text: " "

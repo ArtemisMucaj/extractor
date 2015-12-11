@@ -4,23 +4,17 @@ class ConversionHelper
   @mkdir : (path) ->
     child_p("mkdir", ["-p", path])
 
-  # return pdftoppm requests :
-  @pdftoppm_low_res_req : () ->
-    path = global.__dirname+"/data/"+FileHandle.filename+"/low/"
+  @ScaleRequest: (x, y, p) ->
+    path = p+"/"+x+"x"+y+"/"
     ConversionHelper.mkdir(path)
-    return ['-scale-to-x', '20', '-scale-to-y', '20', '-png',
+    return ['-scale-to-x', x, '-scale-to-y', y, '-tiff',
             FileHandle.filepath, path]
 
-  @pdftoppm_mid_res_req : () ->
-    path = global.__dirname+"/data/"+FileHandle.filename+"/mid/"
+  @PPIRequest: (ppi,p) ->
+    path = p+"/"+ppi+"/"
     ConversionHelper.mkdir(path)
-    return ['-scale-to-x', '500', '-scale-to-y', '500', '-png',
+    return ['-r', ppi, '-tiff',
             FileHandle.filepath, path]
 
-  @pdftoppm_high_res_req : () ->
-    path = global.__dirname+"/data/"+FileHandle.filename+"/high/"
-    ConversionHelper.mkdir(path)
-    return ['-r', '150', '-png',
-            FileHandle.filepath, path]
 
 module.exports = ConversionHelper

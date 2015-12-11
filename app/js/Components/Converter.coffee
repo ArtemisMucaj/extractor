@@ -1,45 +1,46 @@
 # Converter class :
 class Converter
-  # statical attributes
-  @low_res
-  @mid_res
-  @high_res
+  constructor : () ->
+
   # do things here
   worker : () ->
+    that = @
     PDFJS.getDocument(FileHandle.filepath).then (pdf) ->
       nPages = pdf.numPages
+      folder_path = global.__dirname+"/data/"+FileHandle.encodedName
       # Handle progress
-      progress_bar = new ProgressBar(".progress",nPages*3)
+      progress_bar = new ProgressBar(".progress",nPages*2)
       # set update
       progress_bar.update = setInterval ->
         # Check for progression
-        glob global.__dirname+"/data/"+FileHandle.filename+
-              "/**/*.png", (err, files) ->
-                console.log files.length
+        glob folder_path+
+              "/**/*.tif", (err, files) ->
                 progress_bar.compute_and_set(files.length)
       , 200
 
-      file_count = glob.sync global.__dirname+"/data/"+FileHandle.filename+
-        "/**/*.png"
+      file_count = glob.sync folder_path+
+        "/**/*.tif"
         .length
+      console.log file_count
 
       if file_count == progress_bar.max
         # run autopicker
-        PickTrainingExamples.auto()
+        PickTrainingExamples.auto(folder_path+"/20x20/")
       else
-        Converter.low_res = child_p("pdftoppm",
-         ConversionHelper.pdftoppm_low_res_req())
-        Converter.low_res.on 'close', (code) ->
-          console.log('low resolution conversion just finished')
-          PickTrainingExamples.auto()
-        Converter.mid_res = child_p("pdftoppm",
-          ConversionHelper.pdftoppm_mid_res_req())
-        Converter.high_res = child_p("pdftoppm",
-         ConversionHelper.pdftoppm_high_res_req())
-    .then ->
-      #Converter.mid_res.on 'close', (code) ->
-      #  console.log('mid resolution conversion just finished')
-      #Converter.high_res.on 'close', (code) ->
-      #  console.log('high resolution conversion just finished')
+        # Low resolution conversion
+        args = ConversionHelper.ScaleRequest(20,20,folder_path)
+        subprocess = child_p("pdftoppm", args)
+        subprocessList.push subprocess
+        subprocess.on 'close', (code) ->
+          subprocess.exitCode = 1
+        # Better resolution conversion
+        args = ConversionHelper.ScaleRequest(500,500,folder_path)
+        subprocess = child_p("pdftoppm", args)
+        subprocessList.push subprocess
+        # Autopick
+        subprocess.on 'close', (code) ->
+          subprocess.exitCode = 1
+          PickTrainingExamples.auto(folder_path+"/20x20/")
+
 
 module.exports = Converter

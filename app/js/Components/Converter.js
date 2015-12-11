@@ -3,36 +3,39 @@ var Converter;
 Converter = (function() {
   function Converter() {}
 
-  Converter.low_res;
-
-  Converter.mid_res;
-
-  Converter.high_res;
-
   Converter.prototype.worker = function() {
+    var that;
+    that = this;
     return PDFJS.getDocument(FileHandle.filepath).then(function(pdf) {
-      var file_count, nPages, progress_bar;
+      var args, file_count, folder_path, nPages, progress_bar, subprocess;
       nPages = pdf.numPages;
-      progress_bar = new ProgressBar(".progress", nPages * 3);
+      folder_path = global.__dirname + "/data/" + FileHandle.encodedName;
+      progress_bar = new ProgressBar(".progress", nPages * 2);
       progress_bar.update = setInterval(function() {
-        return glob(global.__dirname + "/data/" + FileHandle.filename + "/**/*.png", function(err, files) {
-          console.log(files.length);
+        return glob(folder_path + "/**/*.tif", function(err, files) {
           return progress_bar.compute_and_set(files.length);
         });
       }, 200);
-      file_count = glob.sync(global.__dirname + "/data/" + FileHandle.filename + "/**/*.png").length;
+      file_count = glob.sync(folder_path + "/**/*.tif").length;
+      console.log(file_count);
       if (file_count === progress_bar.max) {
-        return PickTrainingExamples.auto();
+        return PickTrainingExamples.auto(folder_path + "/20x20/");
       } else {
-        Converter.low_res = child_p("pdftoppm", ConversionHelper.pdftoppm_low_res_req());
-        Converter.low_res.on('close', function(code) {
-          console.log('low resolution conversion just finished');
-          return PickTrainingExamples.auto();
+        args = ConversionHelper.ScaleRequest(20, 20, folder_path);
+        subprocess = child_p("pdftoppm", args);
+        subprocessList.push(subprocess);
+        subprocess.on('close', function(code) {
+          return subprocess.exitCode = 1;
         });
-        Converter.mid_res = child_p("pdftoppm", ConversionHelper.pdftoppm_mid_res_req());
-        return Converter.high_res = child_p("pdftoppm", ConversionHelper.pdftoppm_high_res_req());
+        args = ConversionHelper.ScaleRequest(500, 500, folder_path);
+        subprocess = child_p("pdftoppm", args);
+        subprocessList.push(subprocess);
+        return subprocess.on('close', function(code) {
+          subprocess.exitCode = 1;
+          return PickTrainingExamples.auto(folder_path + "/20x20/");
+        });
       }
-    }).then(function() {});
+    });
   };
 
   return Converter;

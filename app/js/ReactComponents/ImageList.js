@@ -1,9 +1,9 @@
-var React, ReactImagesFromPDF;
+var React, ReactImageList;
 
 React = require('react');
 
-ReactImagesFromPDF = React.createClass({
-  displayName: 'ImagesFromPDF',
+ReactImageList = React.createClass({
+  displayName: 'ImageList',
   render: function() {
     var data, i;
     data = this.props.data;
@@ -12,7 +12,8 @@ ReactImagesFromPDF = React.createClass({
     }, React.DOM.div({
       className: "large-12 medium-12 columns center"
     }, React.DOM.p(null, this.props.description)), React.DOM.div({
-      className: "large-12 medium-12 columns"
+      className: "large-12 medium-12 columns",
+      idName: "image-list"
     }, (function() {
       var j, ref, results;
       results = [];
@@ -20,7 +21,7 @@ ReactImagesFromPDF = React.createClass({
         results.push(React.DOM.img({
           className: "",
           key: i,
-          src: data[i]
+          src: "data:image/png;base64," + data[i].toString('base64')
         }));
       }
       return results;
@@ -28,4 +29,4 @@ ReactImagesFromPDF = React.createClass({
   }
 });
 
-module.exports = ReactImagesFromPDF;
+module.exports = ReactImageList;

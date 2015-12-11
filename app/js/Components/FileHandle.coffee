@@ -2,8 +2,12 @@
 class FileHandle
   @dragArea
   @pick_button
+
   @filepath
+
   @filename
+  @encodedName
+
   constructor : (dragArea, pick_button) ->
     FileHandle.setStaticAttr(dragArea, pick_button)
 
@@ -21,6 +25,7 @@ class FileHandle
           FileHandle.filepath = f.path
           FileHandle.filename = FileHandle.filepath.split("/").
                                   pop().split(".")[0]
+          FileHandle.encodedName = btoa(FileHandle.filename)
           ReactDOM.render(React.createElement(ReactProgressBarLayout,
            description: " Your file is being converted "+
            " - This operationg might take a while ",
