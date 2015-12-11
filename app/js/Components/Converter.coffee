@@ -9,7 +9,7 @@ class Converter
     PDFJS.getDocument(FileHandle.filepath).then (pdf) ->
       nPages = pdf.numPages
       # Handle progress
-      progress_bar = new ProgressBar(".progress",nPages)
+      progress_bar = new ProgressBar(".progress",nPages*3)
       # set update
       progress_bar.update = setInterval ->
         # Check for progression
@@ -29,10 +29,9 @@ class Converter
       else
         Converter.low_res = child_p("pdftoppm",
          ConversionHelper.pdftoppm_low_res_req())
-         #.then ->
-          # Converter.low_res.on 'close', (code) ->
-          #   console.log('low resolution conversion just finished')
-          #   PickTrainingExamples.auto()
+        Converter.low_res.on 'close', (code) ->
+          console.log('low resolution conversion just finished')
+          PickTrainingExamples.auto()
         Converter.mid_res = child_p("pdftoppm",
           ConversionHelper.pdftoppm_mid_res_req())
         Converter.high_res = child_p("pdftoppm",
