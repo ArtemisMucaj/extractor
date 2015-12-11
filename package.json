@@ -17,6 +17,7 @@
     "pdfjs-dist" : "*",
     "react" : "*",
     "react-dom": "*",
-    "zmq" : "*"
+    "zmq" : "*",
+    "sharp" : "*"
   }
 }
