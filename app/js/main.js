@@ -1,4 +1,4 @@
-var Autopick, ConversionHelper, Converter, Dialog, DragDrop, Extractor, FileHandle, FilePick, Helper, PickTrainingExamples, ProgressBar, React, ReactDOM, ReactFileButton, ReactFileSelectorLayout, ReactImageList, ReactProgressBar, ReactProgressBarLayout, Remote, child_p, fs, glob, main_loop, os, pdfjs, process, sharp, subprocessList, zmq;
+var Autopick, ConversionHelper, Converter, Dialog, DragDrop, Extractor, FileHandle, FilePick, Helper, MouseDivider, PickTrainingExamples, ProgressBar, React, ReactDOM, ReactFileButton, ReactFileSelectorLayout, ReactImageList, ReactProgressBar, ReactProgressBarLayout, Remote, child_p, fs, glob, main_loop, os, pdfjs, process, resizeablePane, sharp, subprocessList, zmq;
 
 DragDrop = require('drag-drop');
 
@@ -44,6 +44,8 @@ PickTrainingExamples = require('../app/js/Components/PickTrainingExamples');
 
 ProgressBar = require('../app/js/Components/ProgressBar');
 
+MouseDivider = require('../app/js/Components/MouseDivider');
+
 FilePick = require('../app/js/Components/FilePick');
 
 ConversionHelper = require('../app/js/Components/ConversionHelper');
@@ -57,5 +59,7 @@ Extractor = require('../app/js/Extractor');
 subprocessList = [];
 
 Helper.killSubProcessesOnExit(subprocessList);
+
+resizeablePane = new MouseDivider('.mainWindow', '.dragDivider', '.previsualize', 'vertical', 40, 10);
 
 main_loop = new Extractor();

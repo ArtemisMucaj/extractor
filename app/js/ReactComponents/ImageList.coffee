@@ -5,9 +5,7 @@ ReactImageList = React.createClass
   render: ->
     data = @props.data
     React.DOM.div className : "align-center",
-      React.DOM.div className : "large-12 medium-12 columns center",
-        React.DOM.p null, @props.description,
-      React.DOM.div className : "large-12 medium-12 columns",
+      React.DOM.div className : "large-12 medium-12",
       idName:"image-list",
         #eat food for food in ['toast', 'cheese', 'wine']
         for i in [0...data.length]

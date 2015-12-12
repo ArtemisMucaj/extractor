@@ -15,17 +15,60 @@
       <main class="flex-container content">
         <nav class="sidebar small-4 medium-3 large-2">
           <ul class="menu vertical" id="sidebar">
-            <li><a><i class="fi-folder icon-font"></i><span>Open file</span></a></li>
-            <li><a><i class="fi-laptop icon-font"></i><span>Auto-pick</span></a></li>
-            <li><a><i class="fi-target icon-font"></i><span>Manual-pick</span></a></li>
+            <li>
+              <label style="line-height:1;">
+                <input class="hide" id="open-file" type="file">
+                <a>
+                  <i class="fi-folder icon-font"></i>
+                  <span>Open file</span>
+                </a>
+              </label>
+            </li>
+            <li id="run_autopick">
+              <a>
+                <i class="fi-laptop icon-font"></i>
+                <span>Auto-pick</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fi-target icon-font"></i>
+                <span>Manual-pick</span>
+              </a>
+            </li>
             <li><a><i class="fi-database icon-font"></i><span>Classify</span></a></li>
             <li><a><i class="fi-arrow-down icon-font"></i><span>Extract</span></a></li>
           </ul>
         </nav>
-        <article id="content" class="window">
+        <article class="window">
+          <div class="mainWindow">
+            <div data-tabs-contents>
+              <div class="tabs-panel is-active" id="mainTab">
+                <div id="content">
+                  <!-- content -->
+                </div>
+              </div>
+              <div class="tabs-panel" id="details">
+                <p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+              </div>
+            </div>
+          </div>
+          <div class="dragDivider"></div>
+          <div class="previsualize">
+            <div class="tab-menu">
+              <ul class="tabs" data-tabs>
+                <li class="tabs-title is-active"><a href="#mainTab" aria-selected="true">List view</a></li>
+                <li class="tabs-title"><a href="#details">Details</a></li>
+              </ul>
+            </div>
+            <div class="previsualize-content" id="img-list-view">
+              <p style="margin-top:15px;text-transform:capitalize;" class="center"></p>
+            </div>
+          </div>
         </article>
       </main>
-      <footer></footer>
+      <footer>
+      </footer>
     </div>
 
   </body>

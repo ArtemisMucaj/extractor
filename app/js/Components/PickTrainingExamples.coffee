@@ -3,7 +3,13 @@ class PickTrainingExamples
   @urls = []
   @images = []
 
+  @clear : () ->
+    PickTrainingExamples.urls = []
+    PickTrainingExamples.images = []
+
   @auto : (path) ->
+    PickTrainingExamples.clear()
+    # Run autopicker
     autopick = new Autopick()
     # Run auto_pick_train.py
     console.log "Running auto_pick_train.py"
@@ -26,13 +32,13 @@ class PickTrainingExamples
         # Keep image in memory
         PickTrainingExamples.images.push im
         im
-        .resize(150,150).toFormat('png').toBuffer().then (output) ->
+        .resize(75,75).toFormat('png').toBuffer().then (output) ->
           data.push output
           # Render
           ReactDOM.render(React.createElement(ReactImageList,
            description: "",
            data:data),
-            document.getElementById("content"))
+            document.getElementById("img-list-view"))
       autopick.close()
 
   @manual : (path) ->

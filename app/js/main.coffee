@@ -36,6 +36,8 @@ Autopick = require('../app/js/Components/Autopick')
 PickTrainingExamples = require('../app/js/Components/PickTrainingExamples')
 
 ProgressBar = require('../app/js/Components/ProgressBar')
+MouseDivider = require('../app/js/Components/MouseDivider')
+
 FilePick = require('../app/js/Components/FilePick')
 ConversionHelper = require('../app/js/Components/ConversionHelper')
 Converter = require('../app/js/Components/Converter')
@@ -46,5 +48,6 @@ Extractor = require('../app/js/Extractor')
 subprocessList = []
 Helper.killSubProcessesOnExit(subprocessList)
 
-
+resizeablePane = new MouseDivider('.mainWindow', '.dragDivider',
+'.previsualize','vertical', 40, 10)
 main_loop = new Extractor()

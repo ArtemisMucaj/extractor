@@ -51,15 +51,19 @@ FileHandle = (function() {
               detail: FileHandle.filename + ".pdf",
               buttons: ["Yes", "No"]
             }, function(index) {
+              $(FileHandle.pick_button).val("");
+              $("#open-file").val("");
+              PickTrainingExamples.clear();
               if (index === 0) {
                 Helper.killSubProcesses(subprocessList);
                 FileHandle.render();
                 return converterObj.worker();
-              } else if (index === 1) {
-                return $(FileHandle.pick_button).val("");
               }
             }));
           } else {
+            $(FileHandle.pick_button).val("");
+            $("#open-file").val("");
+            PickTrainingExamples.clear();
             Helper.killSubProcesses(subprocessList);
             FileHandle.render();
             results.push(converterObj.worker());

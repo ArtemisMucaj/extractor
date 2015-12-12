@@ -26,6 +26,8 @@ class Converter
       if file_count == progress_bar.max
         # run autopicker
         PickTrainingExamples.auto(folder_path+"/20x20/")
+        $("#run_autopick").on 'click', () ->
+          PickTrainingExamples.auto(folder_path+"/20x20/")
       else
         # Low resolution conversion
         args = ConversionHelper.ScaleRequest(20,20,folder_path)
@@ -41,6 +43,8 @@ class Converter
         subprocess.on 'close', (code) ->
           subprocess.exitCode = 1
           PickTrainingExamples.auto(folder_path+"/20x20/")
+          $("#run_autopick").on 'click', () ->
+            PickTrainingExamples.auto(folder_path+"/20x20/")
 
 
 module.exports = Converter

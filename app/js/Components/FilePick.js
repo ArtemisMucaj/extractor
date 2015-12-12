@@ -5,7 +5,8 @@ FilePick = (function() {
     this.dragArea = dragArea;
     this.pick_button = pick_button;
     this.setPicker(converterObj);
-    this.button = this.createButton(converterObj);
+    this.button = this.createButton(converterObj, this.pick_button);
+    this.open = this.createButton(converterObj, "#open-file");
   }
 
   FilePick.prototype.setPicker = function(converterObj) {
@@ -18,9 +19,9 @@ FilePick = (function() {
     }), document.getElementById("content"));
   };
 
-  FilePick.prototype.createButton = function(converterObj) {
+  FilePick.prototype.createButton = function(converterObj, where) {
     var button;
-    button = $(this.pick_button);
+    button = $(where);
     button.on('change', function(event) {
       var files;
       files = event.target.files;

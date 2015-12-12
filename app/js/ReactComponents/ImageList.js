@@ -10,9 +10,7 @@ ReactImageList = React.createClass({
     return React.DOM.div({
       className: "align-center"
     }, React.DOM.div({
-      className: "large-12 medium-12 columns center"
-    }, React.DOM.p(null, this.props.description)), React.DOM.div({
-      className: "large-12 medium-12 columns",
+      className: "large-12 medium-12",
       idName: "image-list"
     }, (function() {
       var j, ref, results;

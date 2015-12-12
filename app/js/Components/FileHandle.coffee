@@ -43,15 +43,23 @@ class FileHandle
             "the file you wanted to work with ?",
             detail: FileHandle.filename+".pdf",
             buttons: ["Yes", "No"] }, (index) ->
+              # clear inputs
+              $(FileHandle.pick_button).val("")
+              $("#open-file").val("")
+              PickTrainingExamples.clear()
+              # else
               if index == 0
                 # stop everything
                 Helper.killSubProcesses(subprocessList)
                 FileHandle.render()
                 converterObj.worker()
-              else if index == 1
-                $(FileHandle.pick_button).val("")
+
           else
             # stop everthing before starting to work with the new file
+            $(FileHandle.pick_button).val("")
+            $("#open-file").val("")
+            PickTrainingExamples.clear()
+            # run
             Helper.killSubProcesses(subprocessList)
             FileHandle.render()
             converterObj.worker()

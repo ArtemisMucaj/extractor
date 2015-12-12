@@ -5,7 +5,7 @@ Helper = (function() {
 
   Helper.killSubProcessesOnExit = function(processList) {
     return process.on('exit', function() {
-      process.stdout.write("\n Closing application - It's time to kill child processes \n");
+      process.stdout.write("\nClosing application - It's time to kill child processes \n");
       Helper.killSubProcesses(processList);
       return process.stdout.write("We're just doing some clean-up ... and it's done! \n");
     });
