@@ -11,10 +11,8 @@ class MouseDivider
     # top/left attributes
     th = @
     @divider.on 'mousedown', (e) ->
-      console.log $(document)
       $(document).on 'mousemove', th.action()
     $(document).on 'mouseup', (e) ->
-      console.log $(document)
       $(document).off 'mousemove'
 
   action: () ->

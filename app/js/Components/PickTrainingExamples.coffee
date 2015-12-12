@@ -39,6 +39,7 @@ class PickTrainingExamples
            description: "",
            data:data),
             document.getElementById("img-list-view"))
+
       autopick.close()
 
   @manual : (path) ->

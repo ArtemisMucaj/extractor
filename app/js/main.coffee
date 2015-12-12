@@ -50,4 +50,5 @@ Helper.killSubProcessesOnExit(subprocessList)
 
 resizeablePane = new MouseDivider('.mainWindow', '.dragDivider',
 '.previsualize','vertical', 40, 10)
+
 main_loop = new Extractor()

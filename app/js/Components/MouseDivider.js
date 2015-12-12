@@ -12,11 +12,9 @@ MouseDivider = (function() {
     console.log("Creating divider handle");
     th = this;
     this.divider.on('mousedown', function(e) {
-      console.log($(document));
       return $(document).on('mousemove', th.action());
     });
     $(document).on('mouseup', function(e) {
-      console.log($(document));
       return $(document).off('mousemove');
     });
   }

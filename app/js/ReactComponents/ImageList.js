@@ -19,7 +19,13 @@ ReactImageList = React.createClass({
         results.push(React.DOM.img({
           className: "thumbnail",
           key: i,
-          src: "data:image/png;base64," + data[i].toString('base64')
+          id: "img-" + i,
+          src: "data:image/png;base64," + data[i].toString('base64'),
+          onClick: function() {
+            return $("#img-" + i).on('click', function() {
+              return console.log("Click");
+            });
+          }
         }));
       }
       return results;
