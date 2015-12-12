@@ -19,6 +19,8 @@ class PickTrainingExamples
     # add to subprocess list
     subprocessList.push autopick_process
     # catch on close event
+    autopick_process.stderr.on 'data', (data) ->
+      console.log("stder: "+ data)
     autopick_process.on 'close', (code, signal) ->
       autopick_process.exitCode = 1
       msg = JSON.parse(autopick.message.replace(/'/g,'"'))

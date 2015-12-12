@@ -20,6 +20,9 @@ PickTrainingExamples = (function() {
     args = [global.__dirname + '/python/auto_pick_train.py', path];
     autopick_process = child_p("python", args);
     subprocessList.push(autopick_process);
+    autopick_process.stderr.on('data', function(data) {
+      return console.log("stder: " + data);
+    });
     return autopick_process.on('close', function(code, signal) {
       var data, elt, i, im, j, k, len, msg, ref;
       autopick_process.exitCode = 1;
