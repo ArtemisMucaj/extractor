@@ -1,12 +1,33 @@
-var React, ReactImageList;
+var React, ReactImage, ReactImageList;
 
 React = require('react');
 
+ReactImage = React.createClass({
+  displayName: "Image",
+  render: function() {
+    return React.DOM.div(null, React.DOM.img({
+      className: "thumbnail",
+      id: 1,
+      src: "data:image/png;base64," + this.props.data.toString('base64')
+    }));
+  }
+});
+
 ReactImageList = React.createClass({
   displayName: 'ImageList',
+  handleDBClick: function(id, i) {
+    return function() {
+      return PickTrainingExamples.images[i].toFormat("png").toBuffer().then(function(output) {
+        return ReactDOM.render(React.createElement(ReactImage, {
+          data: output
+        }), document.getElementById("image"));
+      });
+    };
+  },
   render: function() {
-    var data, i;
+    var data, i, that;
     data = this.props.data;
+    that = this;
     return React.DOM.div({
       className: "align-center"
     }, React.DOM.div({
@@ -21,11 +42,7 @@ ReactImageList = React.createClass({
           key: i,
           id: "img-" + i,
           src: "data:image/png;base64," + data[i].toString('base64'),
-          onClick: function() {
-            return $("#img-" + i).on('click', function() {
-              return console.log("Click");
-            });
-          }
+          onClick: that.handleDBClick("#img-" + i, i)
         }));
       }
       return results;

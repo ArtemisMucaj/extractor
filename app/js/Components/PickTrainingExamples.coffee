@@ -33,9 +33,10 @@ class PickTrainingExamples
         im = sharp(PickTrainingExamples.urls[i])
         # Keep image in memory
         PickTrainingExamples.images.push im
-        im
+        sharp(PickTrainingExamples.urls[i])
         .resize(75,75).toFormat('png').toBuffer().then (output) ->
           data.push output
+          console.log output.length
           # Render
           ReactDOM.render(React.createElement(ReactImageList,
            description: "",

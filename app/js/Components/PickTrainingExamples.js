@@ -35,8 +35,9 @@ PickTrainingExamples = (function() {
       for (i = k = 0, ref = PickTrainingExamples.urls.length; 0 <= ref ? k < ref : k > ref; i = 0 <= ref ? ++k : --k) {
         im = sharp(PickTrainingExamples.urls[i]);
         PickTrainingExamples.images.push(im);
-        im.resize(75, 75).toFormat('png').toBuffer().then(function(output) {
+        sharp(PickTrainingExamples.urls[i]).resize(75, 75).toFormat('png').toBuffer().then(function(output) {
           data.push(output);
+          console.log(output.length);
           return ReactDOM.render(React.createElement(ReactImageList, {
             description: "",
             data: data
