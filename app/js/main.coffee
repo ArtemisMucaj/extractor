@@ -44,6 +44,7 @@ FileHandle = require('../app/js/Components/FileHandle')
 Extractor = require('../app/js/Extractor')
 
 subprocessList = []
-Helper.killSubProcesses(subprocessList)
+Helper.killSubProcessesOnExit(subprocessList)
+
 
 main_loop = new Extractor()

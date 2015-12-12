@@ -27,7 +27,7 @@ Converter = (function() {
         subprocess.on('close', function(code) {
           return subprocess.exitCode = 1;
         });
-        args = ConversionHelper.ScaleRequest(500, 500, folder_path);
+        args = ConversionHelper.PPIRequest(50, folder_path, "raw");
         subprocess = child_p("pdftoppm", args);
         subprocessList.push(subprocess);
         return subprocess.on('close', function(code) {

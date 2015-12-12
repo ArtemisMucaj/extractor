@@ -102,10 +102,13 @@ header, footer{
   background-color: #BDC3C7;
   -webkit-box-shadow: 0px	0px 5px 1px rgba(140, 140, 140, 0.3);
   box-shadow: 0px	0px 5px 1px rgba(140, 140, 140, 0.3);
-  border-bottom:none;
 }
 #sidebar li a span{
   margin-left:5px;
+}
+
+.thumbnail{
+  margin-left:1em;
 }
 
 .icon-font{

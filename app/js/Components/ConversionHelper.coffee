@@ -10,8 +10,8 @@ class ConversionHelper
     return ['-scale-to-x', x, '-scale-to-y', y, '-tiff',
             FileHandle.filepath, path]
 
-  @PPIRequest: (ppi,p) ->
-    path = p+"/"+ppi+"/"
+  @PPIRequest: (ppi,p,folder) ->
+    path = p+"/"+folder+"/"
     ConversionHelper.mkdir(path)
     return ['-r', ppi, '-tiff',
             FileHandle.filepath, path]

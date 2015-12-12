@@ -15,25 +15,20 @@ class PickTrainingExamples
     # catch on close event
     autopick_process.on 'close', (code, signal) ->
       autopick_process.exitCode = 1
-      #PickTrainingExamples.training_examples = autopick.message
-      msg = autopick.message.replace('[', '').
-      replace(']', '').replace(/ /g,"")
-      msg = msg.replace(/'/g,'').split(',')
+      msg = JSON.parse(autopick.message.replace(/'/g,'"'))
       for elt in msg
         PickTrainingExamples.urls.push global.__dirname+
-          "/data/"+FileHandle.encodedName+"/500x500/"+elt
+          "/data/"+FileHandle.encodedName+"/raw/"+elt
       # Render file list
       data = []
       for i in [0...PickTrainingExamples.urls.length]
-        console.log "Converting "+i+"th image ..."
         im = sharp(PickTrainingExamples.urls[i])
         # Keep image in memory
         PickTrainingExamples.images.push im
         im
-        .resize(200,200).toFormat('png').toBuffer().then (output) ->
+        .resize(150,150).toFormat('png').toBuffer().then (output) ->
           data.push output
           # Render
-          console.log "Rendering "+i+"th image ..."
           ReactDOM.render(React.createElement(ReactImageList,
            description: "",
            data:data),

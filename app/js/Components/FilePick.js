@@ -10,7 +10,7 @@ FilePick = (function() {
 
   FilePick.prototype.setPicker = function(converterObj) {
     this.drag = DragDrop(this.dragArea, function(files, pos) {
-      return FileHandle.handle(files, converterObj);
+      return FileHandle.handle(files, converterObj, true);
     });
     return ReactDOM.render(React.createElement(ReactFileSelectorLayout, {
       description: " Choose a .pdf file to work with" + " - You can either drop it in the window or use the regular button ",
@@ -24,7 +24,7 @@ FilePick = (function() {
     button.on('change', function(event) {
       var files;
       files = event.target.files;
-      return FileHandle.handle(files, converterObj);
+      return FileHandle.handle(files, converterObj, false);
     });
     return button;
   };

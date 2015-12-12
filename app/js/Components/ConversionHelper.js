@@ -14,9 +14,9 @@ ConversionHelper = (function() {
     return ['-scale-to-x', x, '-scale-to-y', y, '-tiff', FileHandle.filepath, path];
   };
 
-  ConversionHelper.PPIRequest = function(ppi, p) {
+  ConversionHelper.PPIRequest = function(ppi, p, folder) {
     var path;
-    path = p + "/" + ppi + "/";
+    path = p + "/" + folder + "/";
     ConversionHelper.mkdir(path);
     return ['-r', ppi, '-tiff', FileHandle.filepath, path];
   };

@@ -3,18 +3,26 @@ var Helper;
 Helper = (function() {
   function Helper() {}
 
-  Helper.killSubProcesses = function(processList) {
+  Helper.killSubProcessesOnExit = function(processList) {
     return process.on('exit', function() {
-      var elt, i, len;
-      process.stdout.write("Closing application - It's time to kill child processes \n");
-      for (i = 0, len = processList.length; i < len; i++) {
-        elt = processList[i];
-        if (elt.exitCode === null) {
-          elt.kill();
-        }
-      }
+      process.stdout.write("\n Closing application - It's time to kill child processes \n");
+      Helper.killSubProcesses(processList);
       return process.stdout.write("We're just doing some clean-up ... and it's done! \n");
     });
+  };
+
+  Helper.killSubProcesses = function(processList) {
+    var elt, i, len, results;
+    results = [];
+    for (i = 0, len = processList.length; i < len; i++) {
+      elt = processList[i];
+      if (elt.exitCode === null) {
+        results.push(elt.kill());
+      } else {
+        results.push(void 0);
+      }
+    }
+    return results;
   };
 
   return Helper;
