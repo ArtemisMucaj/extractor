@@ -15,9 +15,9 @@ ReactImage = React.createClass({
 
 ReactImageList = React.createClass({
   displayName: 'ImageList',
-  handleDBClick: function(id, i) {
+  handleDBClick: function(url, i) {
     return function() {
-      return PickTrainingExamples.images[i].toFormat("png").toBuffer().then(function(output) {
+      return sharp(url).toFormat("png").toBuffer().then(function(output) {
         return ReactDOM.render(React.createElement(ReactImage, {
           data: output
         }), document.getElementById("image"));
@@ -41,8 +41,8 @@ ReactImageList = React.createClass({
           className: "thumbnail",
           key: i,
           id: "img-" + i,
-          src: "data:image/png;base64," + data[i].toString('base64'),
-          onClick: that.handleDBClick("#img-" + i, i)
+          src: "data:image/png;base64," + data[i][1].toString('base64'),
+          onDoubleClick: that.handleDBClick(data[i][0], i)
         }));
       }
       return results;

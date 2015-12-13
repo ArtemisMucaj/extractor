@@ -24,26 +24,25 @@ PickTrainingExamples = (function() {
       return console.log("stder: " + data);
     });
     return autopick_process.on('close', function(code, signal) {
-      var data, elt, i, im, j, k, len, msg, ref;
+      var data, elt, i, len, msg;
       autopick_process.exitCode = 1;
       msg = JSON.parse(autopick.message.replace(/'/g, '"'));
-      for (j = 0, len = msg.length; j < len; j++) {
-        elt = msg[j];
+      for (i = 0, len = msg.length; i < len; i++) {
+        elt = msg[i];
         PickTrainingExamples.urls.push(global.__dirname + "/data/" + FileHandle.encodedName + "/raw/" + elt);
       }
       data = [];
-      for (i = k = 0, ref = PickTrainingExamples.urls.length; 0 <= ref ? k < ref : k > ref; i = 0 <= ref ? ++k : --k) {
-        im = sharp(PickTrainingExamples.urls[i]);
-        PickTrainingExamples.images.push(im);
-        sharp(PickTrainingExamples.urls[i]).resize(75, 75).toFormat('png').toBuffer().then(function(output) {
-          data.push(output);
-          console.log(output.length);
+      PickTrainingExamples.urls.forEach(function(elt) {
+        var image;
+        image = sharp(elt);
+        return image.resize(75, 75).toFormat("png").toBuffer().then(function(output) {
+          data.push([elt, output]);
           return ReactDOM.render(React.createElement(ReactImageList, {
             description: "",
             data: data
           }), document.getElementById("img-list-view"));
         });
-      }
+      });
       return autopick.close();
     });
   };

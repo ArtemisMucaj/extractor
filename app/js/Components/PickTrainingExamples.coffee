@@ -29,20 +29,14 @@ class PickTrainingExamples
           "/data/"+FileHandle.encodedName+"/raw/"+elt
       # Render file list
       data = []
-      for i in [0...PickTrainingExamples.urls.length]
-        im = sharp(PickTrainingExamples.urls[i])
-        # Keep image in memory
-        PickTrainingExamples.images.push im
-        sharp(PickTrainingExamples.urls[i])
-        .resize(75,75).toFormat('png').toBuffer().then (output) ->
-          data.push output
-          console.log output.length
-          # Render
+      PickTrainingExamples.urls.forEach (elt) ->
+        image = sharp(elt)
+        image.resize(75,75).toFormat("png").toBuffer().then (output) ->
+          data.push [elt, output]
           ReactDOM.render(React.createElement(ReactImageList,
            description: "",
            data:data),
             document.getElementById("img-list-view"))
-
       autopick.close()
 
   @manual : (path) ->

@@ -4,14 +4,16 @@ ReactImage = React.createClass
   displayName:"Image",
   render: ->
     React.DOM.div null,
-      React.DOM.img className:"thumbnail", id:1, src:"data:image/png;base64,"+(@props.data).
+      React.DOM.img className:"thumbnail", id:1,
+      src:"data:image/png;base64,"+(@props.data).
       toString('base64')
 
 ReactImageList = React.createClass
   displayName : 'ImageList',
-  handleDBClick: (id,i) ->
+  handleDBClick: (url,i) ->
     () ->
-      PickTrainingExamples.images[i].toFormat("png").toBuffer().then (output) ->
+      # create image and display it
+      sharp(url).toFormat("png").toBuffer().then (output) ->
         ReactDOM.render(React.createElement(ReactImage,
          data:output),
           document.getElementById("image"))
@@ -24,9 +26,10 @@ ReactImageList = React.createClass
       idName:"image-list",
         #eat food for food in ['toast', 'cheese', 'wine']
         for i in [0...data.length]
+          #console.log(data[i])
           React.DOM.img className:"thumbnail", key:i, id:"img-"+i,
-          src:"data:image/png;base64,"+(data[i]).toString('base64'),
-          onClick:that.handleDBClick("#img-"+i,i)
+          src:"data:image/png;base64,"+(data[i][1]).toString('base64'),
+          onDoubleClick:that.handleDBClick(data[i][0],i)
 
 
 module.exports = ReactImageList
