@@ -46,7 +46,7 @@ class FileHandle
               # clear inputs
               $(FileHandle.pick_button).val("")
               $("#open-file").val("")
-              PickTrainingExamples.clear()
+              TEPicker.clear()
               # else
               if index == 0
                 # stop everything
@@ -58,9 +58,9 @@ class FileHandle
             # stop everthing before starting to work with the new file
             $(FileHandle.pick_button).val("")
             $("#open-file").val("")
-            PickTrainingExamples.clear()
-            # run
+            TEPicker.clear()
             Helper.killSubProcesses(subprocessList)
+            # run
             FileHandle.render()
             converterObj.worker()
 

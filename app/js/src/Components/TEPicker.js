@@ -1,38 +1,35 @@
-var PickTrainingExamples;
+var TEPicker;
 
-PickTrainingExamples = (function() {
-  function PickTrainingExamples() {}
+TEPicker = (function() {
+  function TEPicker() {}
 
-  PickTrainingExamples.urls = [];
+  TEPicker.urls = [];
 
-  PickTrainingExamples.images = [];
+  TEPicker.images = [];
 
-  PickTrainingExamples.clear = function() {
-    PickTrainingExamples.urls = [];
-    return PickTrainingExamples.images = [];
+  TEPicker.clear = function() {
+    TEPicker.urls = [];
+    return TEPicker.images = [];
   };
 
-  PickTrainingExamples.auto = function(path) {
+  TEPicker.auto = function(path) {
     var args, autopick, autopick_process;
-    PickTrainingExamples.clear();
+    TEPicker.clear();
     autopick = new Autopick();
     console.log("Running auto_pick_train.py");
     args = [global.__dirname + '/python/auto_pick_train.py', path];
     autopick_process = child_p("python", args);
     subprocessList.push(autopick_process);
-    autopick_process.stderr.on('data', function(data) {
-      return console.log("stder: " + data);
-    });
     return autopick_process.on('close', function(code, signal) {
       var data, elt, i, len, msg;
       autopick_process.exitCode = 1;
       msg = JSON.parse(autopick.message.replace(/'/g, '"'));
       for (i = 0, len = msg.length; i < len; i++) {
         elt = msg[i];
-        PickTrainingExamples.urls.push(global.__dirname + "/data/" + FileHandle.encodedName + "/raw/" + elt);
+        TEPicker.urls.push(global.__dirname + "/data/" + FileHandle.encodedName + "/raw/" + elt);
       }
       data = [];
-      PickTrainingExamples.urls.forEach(function(elt) {
+      TEPicker.urls.forEach(function(elt) {
         var image;
         image = sharp(elt);
         return image.resize(75, 75).toFormat("png").toBuffer().then(function(output) {
@@ -47,12 +44,12 @@ PickTrainingExamples = (function() {
     });
   };
 
-  PickTrainingExamples.manual = function(path) {
+  TEPicker.manual = function(path) {
     return console.log("Manual pick ...");
   };
 
-  return PickTrainingExamples;
+  return TEPicker;
 
 })();
 
-module.exports = PickTrainingExamples;
+module.exports = TEPicker;

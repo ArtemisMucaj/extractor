@@ -1,10 +1,9 @@
-class MouseDivider
+class ResizeableDivider
   constructor: (first_pane, divider, second_pane, @direction,
   @minFirstPane, @minSecondPane) ->
     @first_pane = $(first_pane)
     @divider = $(divider)
     @second_pane = $(second_pane)
-    console.log "Creating divider handle"
     # direction can be vertical or horizontal
     # first_pane, divider and second pane must have an absolute
     # position ... we're going to modify their height/width and
@@ -35,4 +34,4 @@ class MouseDivider
         that.first_pane.css({"width":percent+"%"})
         that.second_pane.css({"left":percent+"%","width":(100-percent)+"%"})
 
-module.exports = MouseDivider
+module.exports = ResizeableDivider

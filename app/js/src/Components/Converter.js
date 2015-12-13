@@ -19,9 +19,9 @@ Converter = (function() {
       file_count = glob.sync(folder_path + "/**/*.tif").length;
       console.log(file_count);
       if (file_count === progress_bar.max) {
-        PickTrainingExamples.auto(folder_path + "/20x20/");
+        TEPicker.auto(folder_path + "/20x20/");
         return $("#run_autopick").on('click', function() {
-          return PickTrainingExamples.auto(folder_path + "/20x20/");
+          return TEPicker.auto(folder_path + "/20x20/");
         });
       } else {
         args = ConversionHelper.ScaleRequest(20, 20, folder_path);
@@ -35,9 +35,9 @@ Converter = (function() {
         subprocessList.push(subprocess);
         return subprocess.on('close', function(code) {
           subprocess.exitCode = 1;
-          PickTrainingExamples.auto(folder_path + "/20x20/");
+          TEPicker.auto(folder_path + "/20x20/");
           return $("#run_autopick").on('click', function() {
-            return PickTrainingExamples.auto(folder_path + "/20x20/");
+            return TEPicker.auto(folder_path + "/20x20/");
           });
         });
       }

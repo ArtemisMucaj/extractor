@@ -4,12 +4,6 @@ class FilePick
     @setPicker(converterObj)
     @button = @createButton(converterObj, @pick_button)
     @open = @createButton(converterObj,"#open-file")
-    #@open.on 'click', () ->
-    #  Dialog.showOpenDialog { filters: [{ name: 'application/pdf', extensions: ['pdf'] }
-    #  ]}, (files) ->
-    #    console.log f
-    #    FileHandle.handle(files, converterObj, true)
-
 
   setPicker: (converterObj) ->
     @drag = DragDrop(@dragArea, (files,pos) ->

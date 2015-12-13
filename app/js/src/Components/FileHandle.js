@@ -53,7 +53,7 @@ FileHandle = (function() {
             }, function(index) {
               $(FileHandle.pick_button).val("");
               $("#open-file").val("");
-              PickTrainingExamples.clear();
+              TEPicker.clear();
               if (index === 0) {
                 Helper.killSubProcesses(subprocessList);
                 FileHandle.render();
@@ -63,7 +63,7 @@ FileHandle = (function() {
           } else {
             $(FileHandle.pick_button).val("");
             $("#open-file").val("");
-            PickTrainingExamples.clear();
+            TEPicker.clear();
             Helper.killSubProcesses(subprocessList);
             FileHandle.render();
             results.push(converterObj.worker());

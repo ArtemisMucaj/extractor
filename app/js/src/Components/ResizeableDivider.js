@@ -1,7 +1,7 @@
-var MouseDivider;
+var ResizeableDivider;
 
-MouseDivider = (function() {
-  function MouseDivider(first_pane, divider, second_pane, direction, minFirstPane, minSecondPane) {
+ResizeableDivider = (function() {
+  function ResizeableDivider(first_pane, divider, second_pane, direction, minFirstPane, minSecondPane) {
     var th;
     this.direction = direction;
     this.minFirstPane = minFirstPane;
@@ -9,7 +9,6 @@ MouseDivider = (function() {
     this.first_pane = $(first_pane);
     this.divider = $(divider);
     this.second_pane = $(second_pane);
-    console.log("Creating divider handle");
     th = this;
     this.divider.on('mousedown', function(e) {
       return $(document).on('mousemove', th.action());
@@ -19,7 +18,7 @@ MouseDivider = (function() {
     });
   }
 
-  MouseDivider.prototype.action = function() {
+  ResizeableDivider.prototype.action = function() {
     var that;
     that = this;
     return function(e) {
@@ -62,8 +61,8 @@ MouseDivider = (function() {
     };
   };
 
-  return MouseDivider;
+  return ResizeableDivider;
 
 })();
 
-module.exports = MouseDivider;
+module.exports = ResizeableDivider;

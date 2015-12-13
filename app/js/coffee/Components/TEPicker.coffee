@@ -1,14 +1,14 @@
-class PickTrainingExamples
-
+class TEPicker
+  # TEPicker for Training examples picker
   @urls = []
   @images = []
-
+  # clear method
   @clear : () ->
-    PickTrainingExamples.urls = []
-    PickTrainingExamples.images = []
-
+    TEPicker.urls = []
+    TEPicker.images = []
+  # autopicker
   @auto : (path) ->
-    PickTrainingExamples.clear()
+    TEPicker.clear()
     # Run autopicker
     autopick = new Autopick()
     # Run auto_pick_train.py
@@ -19,17 +19,17 @@ class PickTrainingExamples
     # add to subprocess list
     subprocessList.push autopick_process
     # catch on close event
-    autopick_process.stderr.on 'data', (data) ->
-      console.log("stder: "+ data)
+    #autopick_process.stderr.on 'data', (data) ->
+    #  console.log("stder: "+ data)
     autopick_process.on 'close', (code, signal) ->
       autopick_process.exitCode = 1
       msg = JSON.parse(autopick.message.replace(/'/g,'"'))
       for elt in msg
-        PickTrainingExamples.urls.push global.__dirname+
+        TEPicker.urls.push global.__dirname+
           "/data/"+FileHandle.encodedName+"/raw/"+elt
       # Render file list
       data = []
-      PickTrainingExamples.urls.forEach (elt) ->
+      TEPicker.urls.forEach (elt) ->
         image = sharp(elt)
         image.resize(75,75).toFormat("png").toBuffer().then (output) ->
           data.push [elt, output]
@@ -39,7 +39,8 @@ class PickTrainingExamples
             document.getElementById("img-list-view"))
       autopick.close()
 
+  # manual picker
   @manual : (path) ->
     console.log "Manual pick ..."
 
-module.exports = PickTrainingExamples
+module.exports = TEPicker
