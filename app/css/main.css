@@ -124,6 +124,14 @@ header, footer{
   margin-bottom:0.5em;
   width:100%/10
 }
+.img-layer{
+  position: absolute;
+  z-index:1;
+}
+.canvas-layer{
+  position:relative;
+  z-index:20;
+}
 .icon-font{
   font-size: 1rem;
 }

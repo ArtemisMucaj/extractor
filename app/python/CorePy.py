@@ -1,8 +1,6 @@
-# import cv2
+import cv2
 import sys
 import numpy as np
-
-import json
 
 from Kppv import Kppv
 from Mlp import Mlp
@@ -65,9 +63,17 @@ def run(path,Core):
 # 	}]
 # }
 def tojson(data):
-    json_string = ""
-    for x in range(len(data[0])):
+    length = len(data[0])
+    json_string = '{"data":['
+    for x in range(0,length):
+        pos, classe = data[0][x], data[1][x]
+        # sys.stdout.write(str(pos)+ " / ")
+        # sys.stdout.write("x top : "+str(pos[0][0])+", y  top: "+str(pos[0][1])+", x bot : "+str(pos[1][0])+", y  bot : "+str(pos[1][1])+"\n")
+        json_string += '{"pos":[{"x":"'+str(pos[0][0])+'", "y":"'+str(pos[0][1])+'"},{"x":"'+str(pos[1][0])+'","y":"'+str(pos[1][1])+'"}],'+'"class":["'+str(classe[0])+'","'+str(classe[1])+'"]}'
+        if x != length - 1:
+            json_string += ','
         pass
+    json_string += ']}'
     return json_string
 
 
@@ -79,10 +85,10 @@ def main():
 
     data = tojson([Core.image.content_list, Core.image.class_list])
 
-    send_to_electron.send(json.dump(data))
+    send_to_electron.send(str(data))
 
-    message = send_to_electron.syncservice.recv()
-    sys.stdout.write(str(message)+"\n")
+    # message = send_to_electron.syncservice.recv()
+    # sys.stdout.write(str(message)+"\n")
 
     send_to_electron.close()
 

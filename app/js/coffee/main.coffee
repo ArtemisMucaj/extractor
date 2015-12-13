@@ -58,15 +58,32 @@ main_loop = new Extractor()
 
 # Test with Train
 $("#run_classify").on 'click', () ->
-  onMessage = (m) ->
-    first = JSON.parse(m)
-    console.log first
   # show image
   url = global.__dirname+"/python/images/test.tif"
-  sharp(url).toFormat("png").toBuffer().then (output) ->
-    ReactDOM.render(React.createElement(ReactImage,
-     data:output),
-      document.getElementById("image"))
+  image = sharp(url)
+  image.toFormat("png").toBuffer().then (output) ->
+    image.metadata().then (meta) ->
+      width = meta.width
+      height = meta.height
+      ReactDOM.render(React.createElement(ReactImage,
+       data:output,height:height,width:width),
+        document.getElementById("image"))
+
+  # on messae method
+  # get frame list and draw them
+  onMessage = (message) ->
+    msg = message.toString()
+    msg = JSON.parse(msg)
+    # Draw rectangles!
+    canvas_layer = $("#canvasLayer")
+    ctx = canvas_layer[0].getContext("2d")
+    #ctx.strokeRect(0,0,207,290)
+    msg["data"].forEach (elt) ->
+      top = elt["pos"][0]
+      bot = elt["pos"][1]
+      width = bot["x"] - top["x"]
+      height = bot["y"] - top["y"]
+      ctx.strokeRect(top["x"],top["y"], width, height)
 
   # run classification
   classify = new Talker(onMessage)
@@ -85,3 +102,4 @@ $("#run_classify").on 'click', () ->
   core_process.on 'close', (code, signal) ->
     console.log "CorePy process ended ..."
     core_process.exitCode = 1
+    classify.close()

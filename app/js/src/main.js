@@ -67,18 +67,36 @@ resizeablePane = new ResizeableDivider('.mainWindow', '.dragDivider', '.previsua
 main_loop = new Extractor();
 
 $("#run_classify").on('click', function() {
-  var args, classify, core_process, onMessage, url;
-  onMessage = function(m) {
-    var first;
-    first = JSON.parse(m);
-    return console.log(first);
-  };
+  var args, classify, core_process, image, onMessage, url;
   url = global.__dirname + "/python/images/test.tif";
-  sharp(url).toFormat("png").toBuffer().then(function(output) {
-    return ReactDOM.render(React.createElement(ReactImage, {
-      data: output
-    }), document.getElementById("image"));
+  image = sharp(url);
+  image.toFormat("png").toBuffer().then(function(output) {
+    return image.metadata().then(function(meta) {
+      var height, width;
+      width = meta.width;
+      height = meta.height;
+      return ReactDOM.render(React.createElement(ReactImage, {
+        data: output,
+        height: height,
+        width: width
+      }), document.getElementById("image"));
+    });
   });
+  onMessage = function(message) {
+    var canvas_layer, ctx, msg;
+    msg = message.toString();
+    msg = JSON.parse(msg);
+    canvas_layer = $("#canvasLayer");
+    ctx = canvas_layer[0].getContext("2d");
+    return msg["data"].forEach(function(elt) {
+      var bot, height, top, width;
+      top = elt["pos"][0];
+      bot = elt["pos"][1];
+      width = bot["x"] - top["x"];
+      height = bot["y"] - top["y"];
+      return ctx.strokeRect(top["x"], top["y"], width, height);
+    });
+  };
   classify = new Talker(onMessage);
   console.log("Running CorePy.py");
   args = [global.__dirname + '/python/CorePy.py', url];
@@ -92,6 +110,7 @@ $("#run_classify").on('click', function() {
   });
   return core_process.on('close', function(code, signal) {
     console.log("CorePy process ended ...");
-    return core_process.exitCode = 1;
+    core_process.exitCode = 1;
+    return classify.close();
   });
 });
