@@ -3,7 +3,6 @@ import sys
 import numpy as np
 
 from Kppv import Kppv
-from Mlp import Mlp
 
 from ImageFactory import ImageFactory
 
