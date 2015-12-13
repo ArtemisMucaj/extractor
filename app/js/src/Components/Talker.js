@@ -1,7 +1,8 @@
-var Autopick;
+var Talker;
 
-Autopick = (function() {
-  function Autopick() {
+Talker = (function() {
+  function Talker(onMessage) {
+    this.onMessage = onMessage;
     this.subscriber = zmq.socket('sub');
     this.client = zmq.socket('req');
     this.subscriber.connect('tcp://localhost:8688');
@@ -12,21 +13,22 @@ Autopick = (function() {
     this.getMessage();
   }
 
-  Autopick.prototype.getMessage = function() {
+  Talker.prototype.getMessage = function() {
     var that;
     that = this;
     return this.subscriber.on('message', function(reply) {
-      return that.message = reply.toString();
+      that.message = reply.toString();
+      return that.onMessage(that.message);
     });
   };
 
-  Autopick.prototype.close = function() {
+  Talker.prototype.close = function() {
     this.subscriber.close();
     return this.client.close();
   };
 
-  return Autopick;
+  return Talker;
 
 })();
 
-module.exports = Autopick;
+module.exports = Talker;

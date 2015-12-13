@@ -10,11 +10,12 @@ class TEPicker
   @auto : (path) ->
     TEPicker.clear()
     # Run autopicker
-    autopick = new Autopick()
+    callback = () ->
+    autopick = new Talker(callback)
     # Run auto_pick_train.py
     console.log "Running auto_pick_train.py"
     args = [global.__dirname+
-      '/python/auto_pick_train.py', path]
+      '/python/Autopick.py', path]
     autopick_process = child_p("python", args)
     # add to subprocess list
     subprocessList.push autopick_process

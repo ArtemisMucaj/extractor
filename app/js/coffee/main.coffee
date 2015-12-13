@@ -25,6 +25,9 @@ ReactFileSelectorLayout = require "../app/js/src/ReactComponents/"+"
     FileSelectorLayout"
 ReactProgressBarLayout = require "../app/js/src/ReactComponents/"+"
     ProgressBarLayout"
+
+ReactImage = require "../app/js/src/ReactComponents/"+"
+    Image"
 ReactImageList = require "../app/js/src/ReactComponents/"+"
     ImageList"
 
@@ -32,7 +35,7 @@ ReactImageList = require "../app/js/src/ReactComponents/"+"
 
 Helper = require('../app/js/src/Components/Helper')
 
-Autopick = require('../app/js/src/Components/Autopick')
+Talker = require('../app/js/src/Components/Talker')
 TEPicker = require('../app/js/src/Components/TEPicker')
 
 ProgressBar = require('../app/js/src/Components/ProgressBar')
@@ -52,3 +55,33 @@ resizeablePane = new ResizeableDivider('.mainWindow', '.dragDivider',
 '.previsualize','vertical', 40, 10)
 
 main_loop = new Extractor()
+
+# Test with Train
+$("#run_classify").on 'click', () ->
+  onMessage = (m) ->
+    first = JSON.parse(m)
+    console.log first
+  # show image
+  url = global.__dirname+"/python/images/test.tif"
+  sharp(url).toFormat("png").toBuffer().then (output) ->
+    ReactDOM.render(React.createElement(ReactImage,
+     data:output),
+      document.getElementById("image"))
+
+  # run classification
+  classify = new Talker(onMessage)
+  console.log "Running CorePy.py"
+  args = [global.__dirname+
+    '/python/CorePy.py', url]
+  core_process = child_p("python", args)
+  # add to subprocess list
+  subprocessList.push core_process
+  # stderr
+  core_process.stderr.on 'data', (data) ->
+    console.log("stder: "+ data)
+  core_process.stdout.on 'data', (data) ->
+    console.log("stdout: "+ data)
+  # on 'close'
+  core_process.on 'close', (code, signal) ->
+    console.log "CorePy process ended ..."
+    core_process.exitCode = 1

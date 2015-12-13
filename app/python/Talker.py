@@ -3,7 +3,7 @@ import sys
 
 
 # Publish data using ZMQ
-class Publisher(object):
+class Talker(object):
     def __init__(self, expected_subscribers):
         self.expected_subscribers, self.subscribers = expected_subscribers, 0
         self.context = zmq.Context()

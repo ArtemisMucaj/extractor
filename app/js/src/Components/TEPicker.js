@@ -13,11 +13,12 @@ TEPicker = (function() {
   };
 
   TEPicker.auto = function(path) {
-    var args, autopick, autopick_process;
+    var args, autopick, autopick_process, callback;
     TEPicker.clear();
-    autopick = new Autopick();
+    callback = function() {};
+    autopick = new Talker(callback);
     console.log("Running auto_pick_train.py");
-    args = [global.__dirname + '/python/auto_pick_train.py', path];
+    args = [global.__dirname + '/python/Autopick.py', path];
     autopick_process = child_p("python", args);
     subprocessList.push(autopick_process);
     return autopick_process.on('close', function(code, signal) {

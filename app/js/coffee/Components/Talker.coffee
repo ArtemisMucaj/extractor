@@ -1,5 +1,5 @@
-class Autopick
-  constructor : () ->
+class Talker
+  constructor : (@onMessage) ->
     @subscriber = zmq.socket('sub')
     @client = zmq.socket('req')
     # set up subscriber and client
@@ -15,9 +15,10 @@ class Autopick
     that = @
     @subscriber.on 'message', (reply) ->
       that.message = reply.toString()
+      that.onMessage(that.message)
 
   close : () ->
     @subscriber.close()
     @client.close()
 
-module.exports = Autopick
+module.exports = Talker
