@@ -14,8 +14,8 @@ class CorePy(object):
         self.path = path
         if predictorType == "kppv":
             self.predictor = Kppv()
-        elif predictorType == "mlp":
-            self.predictor = Mlp()
+        # elif predictorType == "mlp":
+        #    self.predictor = Mlp()
         else:
             self.predictor = None
         self.max_distance = 0
