@@ -78,6 +78,9 @@ header, footer{
 }
 .flex-container header,
 .flex-container footer {
+  border-top: 1px solid rgba(241, 241, 241, 0.49);
+  box-shadow: 0px 0px 1px 0px #272727;
+  z-index:4;
   width: 100%;
 }
 
@@ -95,9 +98,11 @@ header, footer{
 #sidebar li{
   background-color: #E5E5E6;
 	border-bottom: 1px solid rgba(140, 140, 140, 0.3);
+  box-shadow:0px 1px 0px 0px #EFEFEF;
   margin:0;
   padding:0;
   border-radius:0;
+  margin-bottom:1px;
 }
 #sidebar li a{
   color:#2C3E50;
@@ -136,6 +141,7 @@ header, footer{
   height: 75%;
   width:100%;
   overflow-y: scroll;
+  border-bottom:1px solid #F7F7F7;
 }
 .dragDivider{
   position:absolute;
@@ -159,6 +165,7 @@ header, footer{
   height: calc(100% - 28px);
   padding:10px;
   color:white;
+  border-top:1px solid #F7F7F7;
 }
 
 /* tab menu */
