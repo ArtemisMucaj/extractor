@@ -7,7 +7,7 @@ import numpy as np
 import random
 
 # publish data using zeroMQ
-from Talker import Talker
+from Talk import Talk
 
 
 def image_to_list(image):
@@ -79,7 +79,7 @@ def get_training_image(path):
 
 
 def main():
-	path, send_to_electron = sys.argv[1], Talker(1)
+	path, send_to_electron = sys.argv[1], Talk(1)
 	data = get_training_image(path)
 	# send to electron app
 	send_to_electron.send(str(data))

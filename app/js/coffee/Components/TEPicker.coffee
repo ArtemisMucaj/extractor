@@ -11,7 +11,7 @@ class TEPicker
     TEPicker.clear()
     # Run autopicker
     callback = () ->
-    autopick = new Talker(callback)
+    autopick = new Talk(callback)
     # Run auto_pick_train.py
     console.log "Running auto_pick_train.py"
     args = [global.__dirname+
@@ -19,11 +19,17 @@ class TEPicker
     autopick_process = child_p("python", args)
     # add to subprocess list
     subprocessList.push autopick_process
+    autopick_process.stdout.on 'data', (data) ->
+      console.log("stder: "+ data)
     # catch on close event
-    #autopick_process.stderr.on 'data', (data) ->
-    #  console.log("stder: "+ data)
+    autopick_process.stderr.on 'data', (data) ->
+      console.log("stder: "+ data)
     autopick_process.on 'close', (code, signal) ->
+      console.log "Finished executing process"
       autopick_process.exitCode = 1
+      # activate classify button
+      ($("#run_classify")[0]).className = "button"
+      # get new message
       msg = JSON.parse(autopick.message.replace(/'/g,'"'))
       for elt in msg
         TEPicker.urls.push global.__dirname+

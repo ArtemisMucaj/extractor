@@ -13,6 +13,7 @@ Helper = (function() {
 
   Helper.killSubProcesses = function(processList) {
     var elt, i, len, results;
+    console.log("Killing subprocesses ...");
     results = [];
     for (i = 0, len = processList.length; i < len; i++) {
       elt = processList[i];

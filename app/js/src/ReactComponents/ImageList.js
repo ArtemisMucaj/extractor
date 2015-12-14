@@ -1,26 +1,26 @@
-var React, ReactImage, ReactImageList;
+var React, ReactImageList;
 
 React = require('react');
-
-ReactImage = React.createClass({
-  displayName: "Image",
-  render: function() {
-    return React.DOM.div(null, React.DOM.img({
-      className: "thumbnail",
-      id: 1,
-      src: "data:image/png;base64," + this.props.data.toString('base64')
-    }));
-  }
-});
 
 ReactImageList = React.createClass({
   displayName: 'ImageList',
   handleDBClick: function(url, i) {
     return function() {
-      return sharp(url).toFormat("png").toBuffer().then(function(output) {
-        return ReactDOM.render(React.createElement(ReactImage, {
-          data: output
-        }), document.getElementById("image"));
+      var image;
+      image = sharp(url);
+      return image.toFormat("png").toBuffer().then(function(output) {
+        return image.metadata().then(function(meta) {
+          var height, toggle_tabs, width;
+          width = meta.width;
+          height = meta.height;
+          toggle_tabs = new Foundation.Tabs($(".tabs"));
+          toggle_tabs.selectTab($("#details"));
+          return ReactDOM.render(React.createElement(ReactImage, {
+            data: output,
+            width: width,
+            height: height
+          }), document.getElementById("image"));
+        });
       });
     };
   },
@@ -29,9 +29,10 @@ ReactImageList = React.createClass({
     data = this.props.data;
     that = this;
     return React.DOM.div({
-      className: "align-center"
-    }, React.DOM.div({
-      className: "large-12 medium-12",
+      className: "row align-center",
+      style: {
+        "maxWidth": "100%"
+      },
       idName: "image-list"
     }, (function() {
       var j, ref, results;
@@ -42,11 +43,14 @@ ReactImageList = React.createClass({
           key: i,
           id: "img-" + i,
           src: "data:image/png;base64," + data[i][1].toString('base64'),
-          onDoubleClick: that.handleDBClick(data[i][0], i)
+          onDoubleClick: that.handleDBClick(data[i][0], i),
+          style: {
+            'maxWidth': '150px'
+          }
         }));
       }
       return results;
-    })()));
+    })());
   }
 });
 

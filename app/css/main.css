@@ -67,8 +67,8 @@ header, footer{
   position: relative;
   flex-basis: 100%;
 	background-color: #FAFAFA;
-	-webkit-box-shadow: 2px	0px 5px 2px rgba(140, 140, 140, 0.3);
-	box-shadow: 2px	0px 5px 2px rgba(140, 140, 140, 0.3);
+	-webkit-box-shadow: 0px	0px 0px 1px #B4B5B5;
+	box-shadow: 0px	0px 0px 1px #B4B5B5;
 	z-index:3;
 }
 .sidebar {
@@ -110,19 +110,13 @@ header, footer{
   padding: 0.7rem 1.1rem;
 }
 #sidebar li:hover{
-  background-color: #BDC3C7;
-  -webkit-box-shadow: 0px	0px 5px 1px rgba(140, 140, 140, 0.3);
-  box-shadow: 0px	0px 5px 1px rgba(140, 140, 140, 0.3);
-}
-#sidebar li a span{
-  margin-left:5px;
+  background-color: #D9DADA;
 }
 
 /*  */
 .thumbnail{
   margin-left:0.5em;
   margin-bottom:0.5em;
-  width:100%/10
 }
 .img-layer{
   position: absolute;
@@ -157,7 +151,7 @@ header, footer{
   top:75%;
   width:100%;
   /* Style */
-  background: #6D6D6D;
+  background: #F1F1F1;
 }
 .previsualize-content{
   /* overflow */
@@ -170,7 +164,9 @@ header, footer{
 /* tab menu */
 .tab-menu{
   height:28px;
-  background-color: #5A5A5A;
+  background-color: #E8E8E8;
+  border-top: 1px solid #B4B5B5;
+  border-bottom: 1px solid #B4B5B5;
   color:white;
 }
 .tabs{
@@ -182,16 +178,18 @@ header, footer{
 }
 .tabs-title{
   height:100%;
+  border-right: 1px solid #B4B5B5;
 }
 .tabs-title > a {
-  color:white;
+  color:#2C3E50;
   height:100%;
   padding: 0.25rem 1rem;
+  font-size:14px;
   line-height: 1.5;
 }
 .tabs-title > a:hover, .tabs-title > a:focus, .tabs-title > a[aria-selected='true'] {
-  background-color: #6D6D6D;
-  color:white;
+  background-color: #CBCCCC;
+  color:#2C3E50;
 }
 
 /* loaders

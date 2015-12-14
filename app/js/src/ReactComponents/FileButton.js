@@ -12,7 +12,7 @@ ReactFileButton = React.createClass({
       id: "btn-file-pick",
       type: "file"
     }), React.DOM.span({
-      className: "button"
+      className: "button hollow"
     }, this.props.text));
   }
 });

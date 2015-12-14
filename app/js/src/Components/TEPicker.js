@@ -16,14 +16,22 @@ TEPicker = (function() {
     var args, autopick, autopick_process, callback;
     TEPicker.clear();
     callback = function() {};
-    autopick = new Talker(callback);
+    autopick = new Talk(callback);
     console.log("Running auto_pick_train.py");
     args = [global.__dirname + '/python/Autopick.py', path];
     autopick_process = child_p("python", args);
     subprocessList.push(autopick_process);
+    autopick_process.stdout.on('data', function(data) {
+      return console.log("stder: " + data);
+    });
+    autopick_process.stderr.on('data', function(data) {
+      return console.log("stder: " + data);
+    });
     return autopick_process.on('close', function(code, signal) {
       var data, elt, i, len, msg;
+      console.log("Finished executing process");
       autopick_process.exitCode = 1;
+      ($("#run_classify")[0]).className = "button";
       msg = JSON.parse(autopick.message.replace(/'/g, '"'));
       for (i = 0, len = msg.length; i < len; i++) {
         elt = msg[i];

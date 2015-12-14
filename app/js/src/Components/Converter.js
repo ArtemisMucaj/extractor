@@ -19,6 +19,7 @@ Converter = (function() {
       file_count = glob.sync(folder_path + "/**/*.tif").length;
       console.log(file_count);
       if (file_count === progress_bar.max) {
+        ($("#run_autopick")[0]).className = "button";
         TEPicker.auto(folder_path + "/20x20/");
         return $("#run_autopick").on('click', function() {
           return TEPicker.auto(folder_path + "/20x20/");
@@ -35,6 +36,7 @@ Converter = (function() {
         subprocessList.push(subprocess);
         return subprocess.on('close', function(code) {
           subprocess.exitCode = 1;
+          ($("#run_autopick")[0]).className = "button";
           TEPicker.auto(folder_path + "/20x20/");
           return $("#run_autopick").on('click', function() {
             return TEPicker.auto(folder_path + "/20x20/");

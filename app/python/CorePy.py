@@ -2,6 +2,8 @@ import cv2
 import sys
 import numpy as np
 
+import json
+
 from Kppv import Kppv
 
 from ImageFactory import ImageFactory
@@ -40,15 +42,7 @@ class CorePy(object):
 def run(path,Core):
     # set new image - this will compute the features
     Core.setImage(path)
-    # find area of interest
     Core.predict_current()
-    # Core.image.draw()
-    # cv2.namedWindow('image')
-    # cv2.setMouseCallback('image', Core.selectRegionOfInterest)
-    # cv2.imshow('image', Core.image.display)
-    # cv2.waitKey(0)
-    # cv2.setMouseCallback('image', Core.dummyCallBack)
-    # Core.training_predictor()
     pass
 
 
@@ -79,26 +73,36 @@ def tojson(data):
 def main():
     Core = CorePy("","kppv")
     sys.stdout.write("CorePy initialized ...\n")
-    send_to_electron = Talker(1)
-    run(sys.argv[1], Core)
+    send_to_electron = Talk(1)
 
-    data = tojson([Core.image.content_list, Core.image.class_list])
+    send_to_electron.send(b'SYNC')
 
-    send_to_electron.send(str(data))
+    urls = send_to_electron.recv()
+    urls = json.loads(urls)
+
+    for i in range(0, len(urls)):
+        run(urls[i], Core)
+        data = tojson([Core.image.content_list, Core.image.class_list])
+        # send data to electron and receive output
+        send_to_electron.send(str(data))
+        output = send_to_electron.recv()
+
+        sys.stdout.write("\n"+str(output))
+        # set class
+        # train
+        # Core.train_predictor()
+
+    # data = tojson([Core.image.content_list, Core.image.class_list])
+
+    # send_to_electron.send(str(data))
 
     # message = send_to_electron.syncservice.recv()
     # sys.stdout.write(str(message)+"\n")
 
     send_to_electron.close()
-
-    # list_path_training = auto_pick_train.get_training_image("png/20/HPC-T4-2013-GearsAndSprockets-GB/")
-    # Training
-    # for x in range(0,len(list_path_training)):
-    #    functionTestTraining("png/500/HPC-T4-2013-GearsAndSprockets-GB/"+list_path_training[x],Core,F,C)
-    #    pass
     pass
 
 if __name__ == '__main__':
     # publish data using zeroMQ
-    from Talker import Talker
+    from Talk import Talk
     main()

@@ -9,6 +9,7 @@ class Helper
        ... and it's done! \n")
 
   @killSubProcesses: (processList) ->
+    console.log "Killing subprocesses ..."
     for elt in processList
       if elt.exitCode == null
         elt.kill()

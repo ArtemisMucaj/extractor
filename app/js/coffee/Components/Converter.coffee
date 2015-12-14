@@ -24,6 +24,7 @@ class Converter
       console.log file_count
 
       if file_count == progress_bar.max
+        ($("#run_autopick")[0]).className = "button"
         # run autopicker
         TEPicker.auto(folder_path+"/20x20/")
         $("#run_autopick").on 'click', () ->
@@ -42,6 +43,9 @@ class Converter
         # Autopick
         subprocess.on 'close', (code) ->
           subprocess.exitCode = 1
+          # enable autopicker butter
+          ($("#run_autopick")[0]).className = "button"
+          # Run autopicker
           TEPicker.auto(folder_path+"/20x20/")
           $("#run_autopick").on 'click', () ->
             TEPicker.auto(folder_path+"/20x20/")

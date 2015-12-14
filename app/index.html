@@ -10,34 +10,33 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   </head>
   <body>
-
     <div class="flex-container layout">
       <main class="flex-container content">
         <nav class="sidebar small-4 medium-3 large-2">
           <ul class="menu vertical" id="sidebar">
-            <li>
+            <li class="button">
               <label style="line-height:1;">
                 <input class="hide" id="open-file" type="file">
                 <a>
-                  <i class="fi-folder icon-font"></i>
                   <span>Open file</span>
                 </a>
               </label>
             </li>
-            <li id="run_autopick">
+            <li class="button disabled" id="run_autopick">
               <a>
-                <i class="fi-laptop icon-font"></i>
                 <span>Auto-pick</span>
               </a>
             </li>
-            <li>
+            <li class="button disabled" id="run_classify">
               <a>
-                <i class="fi-target icon-font"></i>
-                <span>Manual-pick</span>
+                <span>Classify</span>
               </a>
             </li>
-            <li id="run_classify"><a><i class="fi-database icon-font"></i><span>Classify</span></a></li>
-            <li><a><i class="fi-arrow-down icon-font"></i><span>Extract</span></a></li>
+            <li class="button disabled">
+              <a>
+                <span>Extract</span>
+              </a>
+            </li>
           </ul>
         </nav>
         <article class="window">
@@ -57,6 +56,11 @@
           </div>
           <div class="dragDivider"></div>
           <div class="previsualize">
+            <button id="validate_classification" class="button hollow hide" style="
+                position: absolute;
+                top: -75px;
+                right: 50px;
+            ">Validate</button>
             <div class="tab-menu">
               <ul class="tabs" data-tabs>
                 <li class="tabs-title is-active"><a href="#mainTab" aria-selected="true">List view</a></li>
