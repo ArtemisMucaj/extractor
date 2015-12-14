@@ -62,6 +62,7 @@ $("#run_classify").on 'click', () ->
   toggle_tabs = new Foundation.Tabs($(".tabs"))
   toggle_tabs.selectTab($("#details"))
 
+
 main_loop = new Extractor()
 
 

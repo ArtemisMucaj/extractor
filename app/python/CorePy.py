@@ -70,6 +70,13 @@ def tojson(data):
     return json_string
 
 
+def update_class_list(output, cor):
+    for i in range(len(output["data"])):
+        if output["data"][i]["class"][0] == u'0.0':
+            cor.image.class_list[i][0] = 0
+            cor.image.class_list[i][1] = 1
+
+
 def main():
     Core = CorePy("","kppv")
     sys.stdout.write("CorePy initialized ...\n")
@@ -80,17 +87,19 @@ def main():
     urls = send_to_electron.recv()
     urls = json.loads(urls)
 
+    sys.stdout.write("\nNumber of files: "+str(len(urls)))
+    sys.stdout.write(str(urls))
+
     for i in range(0, len(urls)):
         run(urls[i], Core)
         data = tojson([Core.image.content_list, Core.image.class_list])
         # send data to electron and receive output
         send_to_electron.send(str(data))
         output = send_to_electron.recv()
-
-        sys.stdout.write("\n"+str(output))
-        # set class
-        # train
-        # Core.train_predictor()
+        # get the right format!
+        output = json.loads(output)
+        update_class_list(output,Core)
+        Core.train_predictor()
 
     # data = tojson([Core.image.content_list, Core.image.class_list])
 

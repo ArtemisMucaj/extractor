@@ -12,7 +12,7 @@ class Talk(object):
 
     def setup(self):
         # Setup publisher
-        self.responder.bind('tcp://*:8688')
+        self.responder.bind('tcp://*:8888')
 
     def wait_for_sync(self):
         sys.stdout.write("Waiting for sync ...\n")

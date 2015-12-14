@@ -5,7 +5,7 @@ Talk = (function() {
     this.onMessage = onMessage;
     console.log("Instantiate talk");
     this.requester = zmq.socket('req');
-    this.requester.connect('tcp://localhost:8688');
+    this.requester.connect('tcp://localhost:8888');
     this.requester.send('SYNC');
     this.message = '';
     this.getMessage();

@@ -4,7 +4,7 @@ class Talk
     console.log("Instantiate talk")
     @requester = zmq.socket('req')
     # set up subscriber and client
-    @requester.connect('tcp://localhost:8688')
+    @requester.connect('tcp://localhost:8888')
     @requester.send('SYNC')
     # initialize message
     @message = ''
