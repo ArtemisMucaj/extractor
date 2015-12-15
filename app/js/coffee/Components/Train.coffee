@@ -2,6 +2,7 @@ class Train
   @index = 0
   @click_event = ''
   @classify_talker = ''
+  @isRunning = false
 
   @draw : (message) ->
     canvas_layer = $("#canvasLayer")[0]
@@ -83,10 +84,8 @@ class Train
 
   @run: () ->
     Train.index = 0
+    Train.isRunning = true
     Train.classify_talker = new Talk(Train.onMessage)
-    # remove dblclick event on small thumbnails
-    for i in [0...TEPicker.urls.length]
-      $("#img-"+i).off 'ondblclick'
     # keep going
     console.log "Running CorePy.py"
     args = [global.__dirname+
@@ -105,6 +104,9 @@ class Train
     # on 'close'
     core_process.on 'close', (code, signal) ->
       console.log "CorePy process ended ..."
+      # training ended
+      Train.isRunning = false
+      $("#validate_classification")[0].className="button hollow disabled hide"
       core_process.exitCode = 1
       Train.classify_talker.close()
 

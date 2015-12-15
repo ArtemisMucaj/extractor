@@ -4,20 +4,21 @@ ReactImageList = React.createClass
   displayName : 'ImageList',
   handleDBClick: (url,i) ->
     () ->
-      console.log "double clicked"
-      # create image and display it
-      image = sharp(url)
-      image.toFormat("png").toBuffer().then (output) ->
-        image.metadata().then (meta) ->
-          width = meta.width
-          height = meta.height
-          # toggle details page (?)
-          toggle_tabs = new Foundation.Tabs($(".tabs"))
-          toggle_tabs.selectTab($("#details"))
-          # Render image-list
-          ReactDOM.render(React.createElement(ReactImage,
-           data:output, width:width, height:height),
-            document.getElementById("image"))
+      if Train.isRunning != true
+        console.log "double clicked"
+        # create image and display it
+        image = sharp(url)
+        image.toFormat("png").toBuffer().then (output) ->
+          image.metadata().then (meta) ->
+            width = meta.width
+            height = meta.height
+            # toggle details page (?)
+            toggle_tabs = new Foundation.Tabs($(".tabs"))
+            toggle_tabs.selectTab($("#details"))
+            # Render image-list
+            ReactDOM.render(React.createElement(ReactImage,
+             data:output, width:width, height:height),
+              document.getElementById("image"))
   ,
   render: ->
     data = @props.data
@@ -27,9 +28,10 @@ ReactImageList = React.createClass
       #eat food for food in ['toast', 'cheese', 'wine']
       for i in [0...data.length]
         #console.log(data[i])
+        evt = that.handleDBClick(data[i][0],i)
         React.DOM.img className:"thumbnail", key:i, id:"img-"+i,
         src:"data:image/png;base64,"+(data[i][1]).toString('base64'),
-        onClick:that.handleDBClick(data[i][0],i),
+        onClick:evt,
         style:{'maxWidth':'150px'}
 
 

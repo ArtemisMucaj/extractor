@@ -9,6 +9,8 @@ Train = (function() {
 
   Train.classify_talker = '';
 
+  Train.isRunning = false;
+
   Train.draw = function(message) {
     var canvas_layer, ctx;
     canvas_layer = $("#canvasLayer")[0];
@@ -84,12 +86,10 @@ Train = (function() {
   };
 
   Train.run = function() {
-    var args, core_process, i, j, ref;
+    var args, core_process;
     Train.index = 0;
+    Train.isRunning = true;
     Train.classify_talker = new Talk(Train.onMessage);
-    for (i = j = 0, ref = TEPicker.urls.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      $("#img-" + i).off('ondblclick');
-    }
     console.log("Running CorePy.py");
     args = [global.__dirname + '/python/CorePy.py'];
     core_process = child_p("python", args);
@@ -103,6 +103,8 @@ Train = (function() {
     });
     return core_process.on('close', function(code, signal) {
       console.log("CorePy process ended ...");
+      Train.isRunning = false;
+      $("#validate_classification")[0].className = "button hollow disabled hide";
       core_process.exitCode = 1;
       return Train.classify_talker.close();
     });
