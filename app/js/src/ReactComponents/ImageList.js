@@ -7,6 +7,7 @@ ReactImageList = React.createClass({
   handleDBClick: function(url, i) {
     return function() {
       var image;
+      console.log("double clicked");
       image = sharp(url);
       return image.toFormat("png").toBuffer().then(function(output) {
         return image.metadata().then(function(meta) {
@@ -43,7 +44,7 @@ ReactImageList = React.createClass({
           key: i,
           id: "img-" + i,
           src: "data:image/png;base64," + data[i][1].toString('base64'),
-          onDoubleClick: that.handleDBClick(data[i][0], i),
+          onClick: that.handleDBClick(data[i][0], i),
           style: {
             'maxWidth': '150px'
           }

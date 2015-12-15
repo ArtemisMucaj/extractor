@@ -65,7 +65,9 @@ Train = (function() {
               } else if (elt["class"][0] === "0.0") {
                 elt["class"][0] = "1.0";
                 elt["class"][1] = "0.0";
-                return ctx.clearRect(top["x"], top["y"], bot["x"] - top["x"], bot["y"] - top["y"]);
+                ctx.clearRect(top["x"], top["y"], bot["x"] - top["x"], bot["y"] - top["y"]);
+                ctx.lineWidth = 2;
+                return ctx.strokeRect(top["x"], top["y"], bot["x"] - top["x"], bot["y"] - top["y"]);
               }
             }
           });
@@ -82,9 +84,12 @@ Train = (function() {
   };
 
   Train.run = function() {
-    var args, core_process;
+    var args, core_process, i, j, ref;
     Train.index = 0;
     Train.classify_talker = new Talk(Train.onMessage);
+    for (i = j = 0, ref = TEPicker.urls.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      $("#img-" + i).off('ondblclick');
+    }
     console.log("Running CorePy.py");
     args = [global.__dirname + '/python/CorePy.py'];
     core_process = child_p("python", args);

@@ -4,6 +4,7 @@ ReactImageList = React.createClass
   displayName : 'ImageList',
   handleDBClick: (url,i) ->
     () ->
+      console.log "double clicked"
       # create image and display it
       image = sharp(url)
       image.toFormat("png").toBuffer().then (output) ->
@@ -28,7 +29,7 @@ ReactImageList = React.createClass
         #console.log(data[i])
         React.DOM.img className:"thumbnail", key:i, id:"img-"+i,
         src:"data:image/png;base64,"+(data[i][1]).toString('base64'),
-        onDoubleClick:that.handleDBClick(data[i][0],i),
+        onClick:that.handleDBClick(data[i][0],i),
         style:{'maxWidth':'150px'}
 
 

@@ -61,6 +61,9 @@ class Train
                 elt["class"][1] = "0.0"
                 ctx.clearRect(top["x"],top["y"],
                 (bot["x"]-top["x"]),(bot["y"]-top["y"]))
+                ctx.lineWidth=2
+                ctx.strokeRect(top["x"],top["y"],
+                bot["x"] - top["x"],bot["y"] - top["y"])
         # on click on validate button : send data to
         # python process
         $("#validate_classification").on 'click', () ->
@@ -81,6 +84,10 @@ class Train
   @run: () ->
     Train.index = 0
     Train.classify_talker = new Talk(Train.onMessage)
+    # remove dblclick event on small thumbnails
+    for i in [0...TEPicker.urls.length]
+      $("#img-"+i).off 'ondblclick'
+    # keep going
     console.log "Running CorePy.py"
     args = [global.__dirname+
       '/python/CorePy.py']

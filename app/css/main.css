@@ -138,7 +138,15 @@ header, footer{
 .thumbnail{
   margin-left:0.5em;
   margin-bottom:0.5em;
+  border: solid 4px #fefefe;
+  box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
+  display: inline-block;
+  border-radius : 0px;
 }
+.thumbnail:hover{
+  box-shadow: 0 0px 1px 1px rgba(101, 101, 101, 0.5);
+}
+
 .img-layer{
   position: absolute;
   z-index:1;
@@ -181,15 +189,16 @@ header, footer{
   height: calc(100% - 28px);
   padding:10px;
   color:white;
+  border-left: 1px solid #F3F3F3;
 }
 
 /* tab menu */
 .tab-menu{
   height:28px;
   background-color: #E8E8E8;
-  border-top: 1px solid #D2D2D2;
-  border-bottom: 1px solid #EAEAEA;
-  box-shadow: -2px 3px 3px -3px #A9A9A9;
+  border-top: 1px solid #DEDEDE;
+  border-bottom: 1px solid #DEDEDE;;
+  /*box-shadow: -2px 3px 3px -3px #A9A9A9;*/
   color:white;
 }
 .tabs{
@@ -202,6 +211,7 @@ header, footer{
 .tabs-title{
   height:100%;
   border-right: 1px solid #D8D8D8;
+  box-shadow: 1px 0px 0px 0px #F1F1F1;
 }
 .tabs-title > a {
   color:#2C3E50;
