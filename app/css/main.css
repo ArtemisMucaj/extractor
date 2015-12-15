@@ -67,8 +67,8 @@ header, footer{
   position: relative;
   flex-basis: 100%;
 	background-color: #FAFAFA;
-	-webkit-box-shadow: 0px	0px 0px 1px #B4B5B5;
-	box-shadow: 0px	0px 0px 1px #B4B5B5;
+	-webkit-box-shadow: 0px	0px 5px 0px #B4B5B5;
+	box-shadow: 0px	0px 3px 0px #B4B5B5;
 	z-index:3;
 }
 .sidebar {
@@ -79,8 +79,7 @@ header, footer{
 .flex-container header,
 .flex-container footer {
   border-top: 1px solid rgba(241, 241, 241, 0.49);
-  box-shadow: 0px 0px 1px 0px #272727;
-
+  box-shadow: 0px 0px 5px -1px #676767;
   z-index:4;
   width: 100%;
 }
@@ -96,7 +95,11 @@ header, footer{
 }
 
 /* sidebar */
-#sidebar li{
+.sidebar{
+  display: flex;
+  flex-direction: column;
+}
+.sidebar li{
   background-color: #E5E5E6;
 	border-bottom: 1px solid rgba(140, 140, 140, 0.3);
   box-shadow:0px 1px 0px 0px #EFEFEF;
@@ -105,19 +108,31 @@ header, footer{
   border-radius:0;
   margin-bottom:1px;
 }
-#sidebar li a{
+.sidebar li a{
   color:#2C3E50;
   font-size:1rem;
 }
-#sidebar li label{
+.sidebar li label{
   line-height:1;
   color:#2C3E50;
   font-size:1rem;
   padding: 0.7rem 1.1rem;
 }
-#sidebar li:hover{
+.sidebar li:hover{
   background-color: #D9DADA;
 }
+
+.inset-box{
+  color:#2C3E50;
+  flex: 100%;
+  margin: 10px;
+  margin-bottom:20px;
+  padding: 10px;
+  color: dimgrey;
+  box-shadow: inset 0px 0px 3px #A0A6AD;
+  background-color: #F1F1F1;
+}
+
 
 /*  */
 .thumbnail{
@@ -166,15 +181,15 @@ header, footer{
   height: calc(100% - 28px);
   padding:10px;
   color:white;
-  border-top:1px solid #F7F7F7;
 }
 
 /* tab menu */
 .tab-menu{
   height:28px;
   background-color: #E8E8E8;
-  border-top: 1px solid #B4B5B5;
-  border-bottom: 1px solid #B4B5B5;
+  border-top: 1px solid #D2D2D2;
+  border-bottom: 1px solid #EAEAEA;
+  box-shadow: -2px 3px 3px -3px #A9A9A9;
   color:white;
 }
 .tabs{
@@ -186,7 +201,7 @@ header, footer{
 }
 .tabs-title{
   height:100%;
-  border-right: 1px solid #B4B5B5;
+  border-right: 1px solid #D8D8D8;
 }
 .tabs-title > a {
   color:#2C3E50;
@@ -196,7 +211,7 @@ header, footer{
   line-height: 1.5;
 }
 .tabs-title > a:hover, .tabs-title > a:focus, .tabs-title > a[aria-selected='true'] {
-  background-color: #CBCCCC;
+  background-color: #F1F1F1;
   color:#2C3E50;
 }
 
