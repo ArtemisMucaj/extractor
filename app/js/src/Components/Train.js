@@ -90,19 +90,19 @@ Train = (function() {
     Train.index = 0;
     Train.isRunning = true;
     Train.classify_talker = new Talk(Train.onMessage);
+    $("#run_autopick")[0].className = "button disabled";
+    $("#run_classify")[0].className = "button disabled";
+    $("#run_extract")[0].className = "button disabled";
     console.log("Running CorePy.py");
     args = [global.__dirname + '/python/CorePy.py'];
     core_process = child_p("python", args);
     Train.classify_talker.send(JSON.stringify(TEPicker.urls));
     subprocessList.push(core_process);
-    core_process.stderr.on('data', function(data) {
-      return console.log("stder: " + data);
-    });
-    core_process.stdout.on('data', function(data) {
-      return console.log("stdout: " + data);
-    });
     return core_process.on('close', function(code, signal) {
       console.log("CorePy process ended ...");
+      $("#run_autopick")[0].className = "button";
+      $("#run_classify")[0].className = "button";
+      $("#run_extract")[0].className = "button";
       Train.isRunning = false;
       $("#validate_classification")[0].className = "button hollow disabled hide";
       core_process.exitCode = 1;

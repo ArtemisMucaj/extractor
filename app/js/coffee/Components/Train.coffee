@@ -86,6 +86,9 @@ class Train
     Train.index = 0
     Train.isRunning = true
     Train.classify_talker = new Talk(Train.onMessage)
+    $("#run_autopick")[0].className ="button disabled"
+    $("#run_classify")[0].className ="button disabled"
+    $("#run_extract")[0].className ="button disabled"
     # keep going
     console.log "Running CorePy.py"
     args = [global.__dirname+
@@ -97,13 +100,16 @@ class Train
     # add to subprocess list
     subprocessList.push core_process
     # stderr
-    core_process.stderr.on 'data', (data) ->
-      console.log("stder: "+ data)
-    core_process.stdout.on 'data', (data) ->
-      console.log("stdout: "+ data)
+    #core_process.stderr.on 'data', (data) ->
+    #  console.log("stder: "+ data)
+    #core_process.stdout.on 'data', (data) ->
+    #  console.log("stdout: "+ data)
     # on 'close'
     core_process.on 'close', (code, signal) ->
       console.log "CorePy process ended ..."
+      $("#run_autopick")[0].className ="button"
+      $("#run_classify")[0].className ="button"
+      $("#run_extract")[0].className ="button"
       # training ended
       Train.isRunning = false
       $("#validate_classification")[0].className="button hollow disabled hide"

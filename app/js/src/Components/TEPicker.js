@@ -15,6 +15,9 @@ TEPicker = (function() {
   TEPicker.auto = function(path) {
     var args, autopick, autopick_process, callback;
     TEPicker.clear();
+    $("#run_autopick")[0].className = "button disabled";
+    $("#run_classify")[0].className = "button disabled";
+    $("#run_extract")[0].className = "button disabled";
     callback = function() {};
     autopick = new Talk(callback);
     console.log("Running auto_pick_train.py");
@@ -31,6 +34,7 @@ TEPicker = (function() {
       var data, elt, i, len, msg;
       console.log("Finished executing process");
       autopick_process.exitCode = 1;
+      $("#run_autopick")[0].className = "button";
       ($("#run_classify")[0]).className = "button";
       msg = JSON.parse(autopick.message.replace(/'/g, '"'));
       for (i = 0, len = msg.length; i < len; i++) {

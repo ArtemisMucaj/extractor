@@ -9,6 +9,10 @@ class TEPicker
   # autopicker
   @auto : (path) ->
     TEPicker.clear()
+    # disable buttons for now
+    $("#run_autopick")[0].className ="button disabled"
+    $("#run_classify")[0].className ="button disabled"
+    $("#run_extract")[0].className ="button disabled"
     # Run autopicker
     callback = () ->
     autopick = new Talk(callback)
@@ -28,6 +32,7 @@ class TEPicker
       console.log "Finished executing process"
       autopick_process.exitCode = 1
       # activate classify button
+      $("#run_autopick")[0].className ="button"
       ($("#run_classify")[0]).className = "button"
       # get new message
       msg = JSON.parse(autopick.message.replace(/'/g,'"'))
