@@ -33,6 +33,7 @@ TEPicker = (function() {
     return autopick_process.on('close', function(code, signal) {
       var data, elt, i, len, msg;
       console.log("Finished executing process");
+      console.log('child process terminated due to receipt of signal ', +signal + ' and code ' + code);
       autopick_process.exitCode = 1;
       $("#run_autopick")[0].className = "button";
       ($("#run_classify")[0]).className = "button";

@@ -30,6 +30,8 @@ class TEPicker
       console.log("stder: "+ data)
     autopick_process.on 'close', (code, signal) ->
       console.log "Finished executing process"
+      console.log('child process terminated due to receipt of signal '
+      +signal+' and code '+code)
       autopick_process.exitCode = 1
       # activate classify button
       $("#run_autopick")[0].className ="button"

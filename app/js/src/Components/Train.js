@@ -100,6 +100,7 @@ Train = (function() {
     subprocessList.push(core_process);
     return core_process.on('close', function(code, signal) {
       console.log("CorePy process ended ...");
+      console.log('child process terminated due to receipt of signal ', +signal + ' and code ' + code);
       $("#run_autopick")[0].className = "button";
       $("#run_classify")[0].className = "button";
       $("#run_extract")[0].className = "button";
