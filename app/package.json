@@ -1,5 +1,17 @@
 {
-  "name"    : "Extractor",
-  "version" : "0.1.0",
-  "main"    : "main.js"
+  "name": "thefac-extractor",
+  "productName": "thef.ac Extractor",
+  "version": "0.1.0",
+  "main": "background.js",
+  "dependencies": {
+    "fs-jetpack": "^0.7.0",
+    "jquery" : "*",
+    "glob" : "*",
+    "react" : "*",
+    "react-dom": "*",
+    "zmq" : "*",
+    "sharp" : "*",
+    "pdfinfo" : "*",
+    "drag-drop": "*"
+  }
 }

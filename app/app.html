@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>thef.ac Extractor</title>
+    <!-- must get this font as a local resource -->
+    <script src="./node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="app.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./thefac-extractor/foundation/css/foundation.css">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <link href="./stylesheets/main.css" rel="stylesheet" type="text/css">
+
+    <script src="vendor/electron_boilerplate/context_menu.js"></script>
+    <script src="vendor/electron_boilerplate/external_links.js"></script>
+    <script>
+      var React = require("react");
+      var ReactDOM = require("react-dom")
+    </script>
+</head>
+<body>
+
+  <div class="flex-container layout">
+        <main class="flex-container content">
+          <nav class="sidebar small-4 medium-3 large-2">
+            <ul class="menu vertical" id="sidebar">
+              <li class="button">
+                <label style="line-height:1;">
+                  <input class="hide" id="open-file" type="file">
+                  <a>
+                    <span>Open file</span>
+                  </a>
+                </label>
+              </li>
+              <li class="button disabled" id="run_autopick">
+                <a>
+                  <span>Auto-pick</span>
+                </a>
+              </li>
+              <li class="button disabled" id="run_classify">
+                <a>
+                  <span>Classify</span>
+                </a>
+              </li>
+              <li class="button disabled" id="run_extract">
+                <a>
+                  <span>Extract</span>
+                </a>
+              </li>
+            </ul>
+            <div class="inset-box center" style="
+            " class="center"> </div>
+          </nav>
+          <article class="window">
+            <div class="mainWindow">
+              <div data-tabs-contents>
+                <div class="tabs-panel is-active" id="mainTab">
+                  <div id="content">
+                    <!-- content -->
+                  </div>
+                </div>
+                <div class="tabs-panel" id="details">
+                  <div id="image" class="center">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dragDivider"></div>
+            <div class="previsualize">
+              <button id="validate_classification" class="button hollow hide" style="
+                  position: absolute;
+                  top: -75px;
+                  right: 50px;
+              ">Validate</button>
+              <div class="tab-menu">
+                <ul class="tabs" data-tabs>
+                  <li class="tabs-title is-active"><a href="#mainTab" aria-selected="true">List view</a></li>
+                  <li class="tabs-title"><a href="#details">Details</a></li>
+                </ul>
+              </div>
+              <div class="previsualize-content" id="img-list-view">
+                <p style="margin-top:15px;text-transform:capitalize;" class="center"></p>
+              </div>
+            </div>
+          </article>
+        </main>
+        <footer>
+        </footer>
+      </div>
+
+</body>
+
+<script src="./thefac-extractor/foundation/js/foundation.min.js"></script>
+<script src="./thefac-extractor/foundation/js/app.js"></script>
+<script src="thefac-extractor/src/main.js"></script>
+
+</html>
