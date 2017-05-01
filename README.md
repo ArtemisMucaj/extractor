@@ -1,4 +1,5 @@
-# thefac-extractor
+# depreciated
+## thefac-extractor
 
 Made with Electron, CoffeeScript, React, Python and Foundation 6 CSS framework
 
@@ -7,7 +8,7 @@ Made with Electron, CoffeeScript, React, Python and Foundation 6 CSS framework
     - OpenCV
     - Poppler (pdftoppm, pdfinfo)
 
-## How to
+### How to
 
 Install with "npm install"
 
