@@ -1,4 +1,4 @@
-# depreciated
+# deprecated
 ## thefac-extractor
 
 Made with Electron, CoffeeScript, React, Python and Foundation 6 CSS framework
